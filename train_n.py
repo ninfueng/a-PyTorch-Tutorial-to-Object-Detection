@@ -58,6 +58,13 @@ wandb.init(
     tags=["object-detection", "quantization"],
     config=args)
 
+class DataParallel(torch.nn.DataParallel):
+    def __getattr__(self, name):
+        try:
+            return super().__getattr__(name)
+        except AttributeError:
+            return getattr(self.module, name)
+
 
 def main():
     global start_epoch, label_map, epoch, checkpoint, decay_lr_at
@@ -69,8 +76,8 @@ def main():
         model.base.load_pretrained_layers()
         model.pred_convs.init_conv2d()
         model.aux_convs.init_conv2d()
-
         wandb.watch(model)
+        model = DataParallel(model)
         # Initialize the optimizer, with twice the default learning rate for biases, as in the original Caffe repo
         biases = list()
         not_biases = list()
