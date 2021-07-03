@@ -1,0 +1,24 @@
+2021-07-03 17:47:13,709 INFO    MainThread:81991 [wandb_setup.py:_flush():69] setting env: {}
+2021-07-03 17:47:13,709 INFO    MainThread:81991 [wandb_setup.py:_flush():69] setting login settings: {}
+2021-07-03 17:47:13,709 INFO    MainThread:81991 [wandb_init.py:_log_setup():336] Logging user logs to /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/logs/debug.log
+2021-07-03 17:47:13,710 INFO    MainThread:81991 [wandb_init.py:_log_setup():337] Logging internal logs to /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/logs/debug-internal.log
+2021-07-03 17:47:13,710 INFO    MainThread:81991 [wandb_init.py:init():369] calling init triggers
+2021-07-03 17:47:13,710 INFO    MainThread:81991 [wandb_init.py:init():376] wandb.init called with sweep_config: {}
+config: {'batch_size': 8, 'iterations': 120000, 'lr': 0.001, 'weight_decay': 0.0005}
+2021-07-03 17:47:13,710 INFO    MainThread:81991 [wandb_init.py:init():418] starting backend
+2021-07-03 17:47:13,710 INFO    MainThread:81991 [backend.py:_multiprocessing_setup():72] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-07-03 17:47:13,716 INFO    MainThread:81991 [backend.py:ensure_launched():132] starting backend process...
+2021-07-03 17:47:13,719 INFO    MainThread:81991 [backend.py:ensure_launched():137] started backend process with pid: 82023
+2021-07-03 17:47:13,721 INFO    MainThread:81991 [wandb_init.py:init():423] backend started and connected
+2021-07-03 17:47:13,722 INFO    MainThread:81991 [wandb_init.py:init():465] updated telemetry
+2021-07-03 17:47:13,724 INFO    MainThread:81991 [wandb_init.py:init():484] communicating current version
+2021-07-03 17:47:14,551 INFO    MainThread:81991 [wandb_init.py:init():489] got version response upgrade_message: "wandb version 0.10.33 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2021-07-03 17:47:14,551 INFO    MainThread:81991 [wandb_init.py:init():497] communicating run to backend with 30 second timeout
+2021-07-03 17:47:14,783 INFO    MainThread:81991 [wandb_init.py:init():522] starting run threads in backend
+2021-07-03 17:47:19,790 INFO    MainThread:81991 [wandb_run.py:_console_start():1538] atexit reg
+2021-07-03 17:47:19,791 INFO    MainThread:81991 [wandb_run.py:_redirect():1412] redirect: SettingsConsole.REDIRECT
+2021-07-03 17:47:19,792 INFO    MainThread:81991 [wandb_run.py:_redirect():1417] Redirecting console.
+2021-07-03 17:47:19,796 INFO    MainThread:81991 [wandb_run.py:_redirect():1473] Redirects installed.
+2021-07-03 17:47:19,796 INFO    MainThread:81991 [wandb_init.py:init():547] run started, returning control to user process
+2021-07-03 17:47:25,142 INFO    MainThread:81991 [wandb_watch.py:watch():40] Watching

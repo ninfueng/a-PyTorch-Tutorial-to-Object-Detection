@@ -14,6 +14,7 @@ from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description="mixed-ssd300.")
 parser.add_argument("--batch_size", type=int, default=8)
+parser.add_argument("--test_batch_size", type=int, default=64)
 parser.add_argument("--iterations", type=int, default=120_000)
 parser.add_argument("--weight-decay", type=float, default=5e-4)
 parser.add_argument("--lr", type=float, default=1e-3)
@@ -125,7 +126,7 @@ def main():
     )
     test_loader = torch.utils.data.DataLoader(
         test_dataset,
-        batch_size=batch_size,
+        batch_size=args.test_batch_size,
         shuffle=False,
         collate_fn=test_dataset.collate_fn,
         num_workers=workers,
@@ -154,7 +155,10 @@ def main():
         )
         # Save checkpoint
         evaluate(test_loader, model)
-        save_checkpoint(epoch, model, optimizer)
+        try:
+            save_checkpoint(epoch, model, optimizer)
+        except AttributeError:
+            pass
 
 
 def train(train_loader, model, criterion, optimizer, epoch):
@@ -217,14 +221,14 @@ def train(train_loader, model, criterion, optimizer, epoch):
                     loss=losses,
                 )
             )
-    del (
-        predicted_locs,
-        predicted_scores,
-        images,
-        boxes,
-        labels,
-    )  # free some memory since their histories may be stored
-
+#    del (
+#        predicted_locs,
+#        predicted_scores,
+#        images,
+#        boxes,
+#        labels,
+#    )  # free some memory since their histories may be stored
+#
 
 def evaluate(test_loader, model):
     """
@@ -251,7 +255,6 @@ def evaluate(test_loader, model):
             tqdm(test_loader, desc="Evaluating")
         ):
             images = images.to(device)  # (N, 3, 300, 300)
-
             # Forward prop.
             predicted_locs, predicted_scores = model(images)
 

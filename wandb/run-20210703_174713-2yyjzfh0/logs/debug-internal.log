@@ -1,0 +1,127 @@
+2021-07-03 17:47:14,446 INFO    MainThread:82023 [internal.py:wandb_internal():91] W&B internal server running at pid: 82023, started at: 2021-07-03 17:47:14.446056
+2021-07-03 17:47:14,448 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: check_version
+2021-07-03 17:47:14,448 DEBUG   SenderThread:82023 [sender.py:send():179] send: header
+2021-07-03 17:47:14,448 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: check_version
+2021-07-03 17:47:14,451 INFO    WriterThread:82023 [datastore.py:open_for_write():77] open: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/run-2yyjzfh0.wandb
+2021-07-03 17:47:14,551 DEBUG   SenderThread:82023 [sender.py:send():179] send: run
+2021-07-03 17:47:14,782 INFO    SenderThread:82023 [dir_watcher.py:__init__():168] watching files in: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files
+2021-07-03 17:47:14,782 INFO    SenderThread:82023 [sender.py:_start_run_threads():707] run started: 2yyjzfh0 with start time 1625302033
+2021-07-03 17:47:14,784 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: run_start
+2021-07-03 17:47:14,784 DEBUG   SenderThread:82023 [sender.py:send():179] send: summary
+2021-07-03 17:47:14,784 INFO    SenderThread:82023 [sender.py:_save_file():829] saving file wandb-summary.json with policy end
+2021-07-03 17:47:15,789 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/wandb-summary.json
+2021-07-03 17:47:15,998 DEBUG   HandlerThread:82023 [meta.py:__init__():39] meta init
+2021-07-03 17:47:15,998 DEBUG   HandlerThread:82023 [meta.py:__init__():53] meta init done
+2021-07-03 17:47:15,998 DEBUG   HandlerThread:82023 [meta.py:probe():210] probe
+2021-07-03 17:47:16,005 DEBUG   HandlerThread:82023 [meta.py:_setup_git():200] setup git
+2021-07-03 17:47:16,017 DEBUG   HandlerThread:82023 [meta.py:_setup_git():207] setup git done
+2021-07-03 17:47:16,017 DEBUG   HandlerThread:82023 [meta.py:_save_pip():57] save pip
+2021-07-03 17:47:16,018 DEBUG   HandlerThread:82023 [meta.py:_save_pip():71] save pip done
+2021-07-03 17:47:16,018 DEBUG   HandlerThread:82023 [meta.py:_save_conda():78] save conda
+2021-07-03 17:47:16,788 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/requirements.txt
+2021-07-03 17:47:16,788 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/conda-environment.yaml
+2021-07-03 17:47:20,790 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:47:21,594 DEBUG   HandlerThread:82023 [meta.py:_save_conda():86] save conda done
+2021-07-03 17:47:21,594 DEBUG   HandlerThread:82023 [meta.py:probe():252] probe done
+2021-07-03 17:47:21,597 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:47:21,598 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:47:21,789 DEBUG   SenderThread:82023 [sender.py:send():179] send: files
+2021-07-03 17:47:21,790 INFO    SenderThread:82023 [sender.py:_save_file():829] saving file wandb-metadata.json with policy now
+2021-07-03 17:47:21,791 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/conda-environment.yaml
+2021-07-03 17:47:21,791 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/wandb-metadata.json
+2021-07-03 17:47:22,391 INFO    Thread-11 :82023 [upload_job.py:push():133] Uploaded file /tmp/tmprgjap2k_wandb/ox3hakn0-wandb-metadata.json
+2021-07-03 17:47:22,791 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:47:26,794 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:47:36,791 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:47:36,791 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:47:40,808 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:47:46,431 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:47:51,989 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:47:52,051 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:47:58,816 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:48:07,238 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:48:07,239 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:48:14,823 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:48:17,844 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:48:22,442 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:48:22,442 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:48:32,834 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:48:37,630 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:48:37,631 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:48:48,843 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:48:49,303 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:48:52,826 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:48:52,827 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:49:04,851 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:49:08,024 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:49:08,025 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:49:20,814 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:49:22,863 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:49:23,217 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:49:23,218 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:49:38,409 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:49:38,410 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:49:38,874 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:49:52,280 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:49:53,621 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:49:53,622 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:49:56,886 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:50:08,934 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:50:08,935 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:50:12,898 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:50:23,794 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:50:24,135 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:50:24,135 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:50:28,910 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:50:39,382 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:50:39,383 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:50:40,919 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:50:54,575 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:50:54,575 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:50:55,766 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:51:09,768 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:51:09,768 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:51:24,971 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:51:24,971 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:51:26,970 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:51:27,261 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:51:40,168 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:51:40,168 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:51:55,374 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:51:55,376 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:51:58,744 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:52:09,021 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:52:10,579 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:52:10,580 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:52:25,783 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:52:25,783 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:52:30,259 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:52:40,981 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:52:40,982 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:52:49,075 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:52:56,182 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:52:56,182 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:53:01,781 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:53:11,382 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:53:11,382 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:53:26,585 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:53:26,586 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:53:27,124 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:53:33,299 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:53:41,783 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:53:41,783 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:53:56,972 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:53:56,972 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:54:04,803 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:54:11,179 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:54:12,173 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:54:12,173 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:54:27,373 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:54:27,374 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:54:36,309 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats
+2021-07-03 17:54:42,577 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:54:42,578 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:54:49,228 INFO    Thread-8  :82023 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210703_174713-2yyjzfh0/files/output.log
+2021-07-03 17:54:57,789 DEBUG   HandlerThread:82023 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-03 17:54:57,789 DEBUG   SenderThread:82023 [sender.py:send_request():193] send_request: stop_status
+2021-07-03 17:55:07,795 DEBUG   SenderThread:82023 [sender.py:send():179] send: stats

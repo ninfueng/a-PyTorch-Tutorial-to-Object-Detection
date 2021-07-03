@@ -1,0 +1,20 @@
+
+Loaded base model.
+Loaded base model.
+Epoch: [0][0/2069]	Batch Time 13.232 (13.232)	Data Time 0.888 (0.888)	Loss 23.9861 (23.9861)	
+Epoch: [0][200/2069]	Batch Time 0.126 (0.152)	Data Time 0.000 (0.005)	Loss 6.9864 (11.0131)	
+Epoch: [0][400/2069]	Batch Time 0.082 (0.119)	Data Time 0.000 (0.003)	Loss 6.0515 (8.8583)	
+Epoch: [0][600/2069]	Batch Time 0.085 (0.107)	Data Time 0.000 (0.002)	Loss 5.8230 (7.9820)	
+Epoch: [0][800/2069]	Batch Time 0.081 (0.102)	Data Time 0.000 (0.001)	Loss 5.4530 (7.5282)	
+Epoch: [0][1000/2069]	Batch Time 0.084 (0.098)	Data Time 0.000 (0.001)	Loss 6.9449 (7.2012)	
+Epoch: [0][1200/2069]	Batch Time 0.082 (0.096)	Data Time 0.000 (0.001)	Loss 5.3669 (6.9820)	
+Epoch: [0][1400/2069]	Batch Time 0.086 (0.094)	Data Time 0.000 (0.001)	Loss 5.2240 (6.7993)	
+Epoch: [0][1600/2069]	Batch Time 0.080 (0.093)	Data Time 0.000 (0.001)	Loss 5.9800 (6.6518)	
+Epoch: [0][1800/2069]	Batch Time 0.083 (0.092)	Data Time 0.000 (0.001)	Loss 5.2796 (6.5239)	
+Epoch: [0][2000/2069]	Batch Time 0.084 (0.091)	Data Time 0.000 (0.001)	Loss 4.8323 (6.4113)	
+
+
+
+
+
+
