@@ -54,7 +54,7 @@ hparams = {
     "lr": lr,
     "weight_decay": weight_decay,
 }
-hparams2 = {f"{ss}{idx}":ss for idx, ss in enumerate()}
+hparams2 = {f"{ss}{idx}": ss for idx, ss in enumerate(args.ws)}
 wandb.init(
     project="mixed-ssd300",
     tags=["object-detection", "quantization"],
@@ -233,10 +233,8 @@ def evaluate(test_loader, model):
     :param test_loader: DataLoader for test data
     :param model: model
     """
-
     # Make sure it's in eval mode
     model.eval()
-
     # Lists to store detected and true boxes, labels, scores
     det_boxes = list()
     det_labels = list()
@@ -298,4 +296,8 @@ def evaluate(test_loader, model):
 
 
 if __name__ == "__main__":
+    import sys
+    if not sys.warnoptions:
+        import warnings
+        warnings.simplefilter("ignore")
     main()

@@ -1,0 +1,25 @@
+
+Loaded base model.
+Loaded base model.
+Epoch: [0][0/2069]	Batch Time 14.098 (14.098)	Data Time 1.316 (1.316)	Loss 24.4450 (24.4450)	
+Epoch: [0][200/2069]	Batch Time 0.083 (0.156)	Data Time 0.000 (0.007)	Loss 6.6373 (9.7705)	
+Epoch: [0][400/2069]	Batch Time 0.084 (0.121)	Data Time 0.000 (0.004)	Loss 5.4443 (8.0897)	
+Epoch: [0][600/2069]	Batch Time 0.091 (0.109)	Data Time 0.000 (0.002)	Loss 6.2490 (7.4199)	
+Epoch: [0][800/2069]	Batch Time 0.085 (0.103)	Data Time 0.000 (0.002)	Loss 5.6391 (7.0513)	
+Epoch: [0][1000/2069]	Batch Time 0.083 (0.099)	Data Time 0.000 (0.002)	Loss 6.2548 (6.8095)	
+Epoch: [0][1200/2069]	Batch Time 0.085 (0.097)	Data Time 0.000 (0.001)	Loss 5.1404 (6.6040)	
+Epoch: [0][1400/2069]	Batch Time 0.084 (0.095)	Data Time 0.000 (0.001)	Loss 6.1222 (6.4503)	
+Epoch: [0][1600/2069]	Batch Time 0.085 (0.094)	Data Time 0.000 (0.001)	Loss 5.1330 (6.3183)	
+Epoch: [0][1800/2069]	Batch Time 0.082 (0.093)	Data Time 0.000 (0.001)	Loss 5.2008 (6.1978)	
+Epoch: [0][2000/2069]	Batch Time 0.081 (0.092)	Data Time 0.000 (0.001)	Loss 4.5972 (6.0870)	
+Evaluating:   0%|                                                                                                                                                                                                     | 0/619 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "train_n.py", line 303, in <module>
+    main()
+  File "train_n.py", line 156, in main
+    evaluate(test_loader, model)
+  File "train_n.py", line 268, in evaluate
+    top_k=200,
+  File "/home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/model_n.py", line 659, in detect_objects
+    suppress = torch.max(suppress, overlap[box] > max_overlap)
+RuntimeError: Expected object of scalar type Byte but got scalar type Bool for argument #2 'other'

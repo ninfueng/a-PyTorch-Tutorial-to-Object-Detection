@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "train_n.py", line 59, in <module>
+    wandb.config(config=hparams)
+TypeError: 'Config' object is not callable
