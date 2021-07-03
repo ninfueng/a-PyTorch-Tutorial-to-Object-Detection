@@ -19,29 +19,33 @@ class PascalVOCDataset(Dataset):
         """
         self.split = split.upper()
 
-        assert self.split in {'TRAIN', 'TEST'}
+        assert self.split in {"TRAIN", "TEST"}
 
         self.data_folder = data_folder
         self.keep_difficult = keep_difficult
 
         # Read data files
-        with open(os.path.join(data_folder, self.split + '_images.json'), 'r') as j:
+        with open(
+            os.path.join(data_folder, self.split + "_images.json"), "r"
+        ) as j:
             self.images = json.load(j)
-        with open(os.path.join(data_folder, self.split + '_objects.json'), 'r') as j:
+        with open(
+            os.path.join(data_folder, self.split + "_objects.json"), "r"
+        ) as j:
             self.objects = json.load(j)
 
         assert len(self.images) == len(self.objects)
 
     def __getitem__(self, i):
         # Read image
-        image = Image.open(self.images[i], mode='r')
-        image = image.convert('RGB')
+        image = Image.open(self.images[i], mode="r")
+        image = image.convert("RGB")
 
         # Read objects in this image (bounding boxes, labels, difficulties)
         objects = self.objects[i]
-        boxes = torch.FloatTensor(objects['boxes'])  # (n_objects, 4)
-        labels = torch.LongTensor(objects['labels'])  # (n_objects)
-        difficulties = torch.ByteTensor(objects['difficulties'])  # (n_objects)
+        boxes = torch.FloatTensor(objects["boxes"])  # (n_objects, 4)
+        labels = torch.LongTensor(objects["labels"])  # (n_objects)
+        difficulties = torch.ByteTensor(objects["difficulties"])  # (n_objects)
 
         # Discard difficult objects, if desired
         if not self.keep_difficult:
@@ -50,7 +54,9 @@ class PascalVOCDataset(Dataset):
             difficulties = difficulties[1 - difficulties]
 
         # Apply transformations
-        image, boxes, labels, difficulties = transform(image, boxes, labels, difficulties, split=self.split)
+        image, boxes, labels, difficulties = transform(
+            image, boxes, labels, difficulties, split=self.split
+        )
 
         return image, boxes, labels, difficulties
 
@@ -82,4 +88,9 @@ class PascalVOCDataset(Dataset):
 
         images = torch.stack(images, dim=0)
 
-        return images, boxes, labels, difficulties  # tensor (N, 3, 300, 300), 3 lists of N tensors each
+        return (
+            images,
+            boxes,
+            labels,
+            difficulties,
+        )  # tensor (N, 3, 300, 300), 3 lists of N tensors each
