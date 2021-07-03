@@ -9,9 +9,11 @@ import argparse
 from multiprocessing import cpu_count
 import wandb
 from quant import cvt2quant
+from pprint import PrettyPrinter
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser(description="mixed-ssd300.")
-parser.add_argument("--batch", type=int, default=8)
+parser.add_argument("--batch_size", type=int, default=8)
 parser.add_argument("--iterations", type=int, default=120_000)
 parser.add_argument("--weight-decay", type=float, default=5e-4)
 parser.add_argument("--lr", type=float, default=1e-3)
@@ -52,11 +54,14 @@ hparams = {
     "lr": lr,
     "weight_decay": weight_decay,
 }
-wandb.config(config=hparams)
+hparams2 = {f"{ss}{idx}":ss for idx, ss in enumerate()}
 wandb.init(
     project="mixed-ssd300",
     tags=["object-detection", "quantization"],
-    config=args)
+    config=hparams)
+
+# Load eval.py
+pp = PrettyPrinter()
 
 class DataParallel(torch.nn.DataParallel):
     def __getattr__(self, name):
@@ -115,6 +120,17 @@ def main():
         num_workers=workers,
         pin_memory=True,
     )  # note that we're passing the collate function here
+    test_dataset = PascalVOCDataset(
+        data_folder, split="test", keep_difficult=keep_difficult
+    )
+    test_loader = torch.utils.data.DataLoader(
+        test_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        collate_fn=test_dataset.collate_fn,
+        num_workers=workers,
+        pin_memory=True,
+    )
 
     # Calculate total number of epochs to train and the epochs to decay learning rate at (i.e. convert iterations to epochs)
     # To convert iterations to epochs, divide iterations by the number of iterations per epoch
@@ -137,6 +153,7 @@ def main():
             epoch=epoch,
         )
         # Save checkpoint
+        evaluate(test_loader, model)
         save_checkpoint(epoch, model, optimizer)
 
 
@@ -207,6 +224,77 @@ def train(train_loader, model, criterion, optimizer, epoch):
         boxes,
         labels,
     )  # free some memory since their histories may be stored
+
+
+def evaluate(test_loader, model):
+    """
+    Evaluate.
+
+    :param test_loader: DataLoader for test data
+    :param model: model
+    """
+
+    # Make sure it's in eval mode
+    model.eval()
+
+    # Lists to store detected and true boxes, labels, scores
+    det_boxes = list()
+    det_labels = list()
+    det_scores = list()
+    true_boxes = list()
+    true_labels = list()
+    true_difficulties = (
+        list()
+    )  # it is necessary to know which objects are 'difficult', see 'calculate_mAP' in utils.py
+
+    with torch.no_grad():
+        # Batches
+        for i, (images, boxes, labels, difficulties) in enumerate(
+            tqdm(test_loader, desc="Evaluating")
+        ):
+            images = images.to(device)  # (N, 3, 300, 300)
+
+            # Forward prop.
+            predicted_locs, predicted_scores = model(images)
+
+            # Detect objects in SSD output
+            (
+                det_boxes_batch,
+                det_labels_batch,
+                det_scores_batch,
+            ) = model.detect_objects(
+                predicted_locs,
+                predicted_scores,
+                min_score=0.01,
+                max_overlap=0.45,
+                top_k=200,
+            )
+            # Evaluation MUST be at min_score=0.01, max_overlap=0.45, top_k=200 for fair comparision with the paper's results and other repos
+
+            # Store this batch's results for mAP calculation
+            boxes = [b.to(device) for b in boxes]
+            labels = [l.to(device) for l in labels]
+            difficulties = [d.to(device) for d in difficulties]
+
+            det_boxes.extend(det_boxes_batch)
+            det_labels.extend(det_labels_batch)
+            det_scores.extend(det_scores_batch)
+            true_boxes.extend(boxes)
+            true_labels.extend(labels)
+            true_difficulties.extend(difficulties)
+
+        # Calculate mAP
+        APs, mAP = calculate_mAP(
+            det_boxes,
+            det_labels,
+            det_scores,
+            true_boxes,
+            true_labels,
+            true_difficulties,
+        )
+    # Print AP for each class
+    pp.pprint(APs)
+    print("\nMean Average Precision (mAP): %.3f" % mAP)
 
 
 if __name__ == "__main__":

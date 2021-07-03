@@ -35,7 +35,6 @@ test_loader = torch.utils.data.DataLoader(
     pin_memory=True,
 )
 
-
 def evaluate(test_loader, model):
     """
     Evaluate.
@@ -102,12 +101,9 @@ def evaluate(test_loader, model):
             true_labels,
             true_difficulties,
         )
-
     # Print AP for each class
     pp.pprint(APs)
-
     print("\nMean Average Precision (mAP): %.3f" % mAP)
-
 
 if __name__ == "__main__":
     evaluate(test_loader, model)
