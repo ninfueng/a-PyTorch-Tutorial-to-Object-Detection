@@ -1,0 +1,24 @@
+{
+    "os": "Linux-4.15.0-64-generic-ppc64le-with-debian-buster-sid",
+    "python": "3.6.13",
+    "heartbeatAt": "2021-07-03T08:58:46.639197",
+    "startedAt": "2021-07-03T08:58:44.285288",
+    "docker": null,
+    "gpu": "Tesla V100-SXM2-32GB",
+    "gpu_count": 2,
+    "cpu_count": 160,
+    "cuda": "10.1.243",
+    "args": [],
+    "state": "running",
+    "program": "train_n.py",
+    "codePath": "train_n.py",
+    "git": {
+        "remote": "git@github.com:ninfueng/a-PyTorch-Tutorial-to-Object-Detection.git",
+        "commit": "009e2bfb805b66ec464036e52403837435540d1a"
+    },
+    "email": "ninnart.fuengfusin@yahoo.com",
+    "root": "/home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection",
+    "host": "Power9",
+    "username": "tm_ninnart16",
+    "executable": "/home/tm_ninnart16/.conda/envs/torch/bin/python"
+}

@@ -18,3 +18,19 @@ Epoch: [0][2000/2069]	Batch Time 0.084 (0.091)	Data Time 0.000 (0.001)	Loss 4.83
 
 
 
+
+
+
+
+
+Evaluating:  14%|█████████▊                                                            | 11/78 [07:32<45:53, 41.10s/it]
+Traceback (most recent call last):
+  File "train_n.py", line 306, in <module>
+    warnings.simplefilter("ignore")
+  File "train_n.py", line 157, in main
+    # Save checkpoint
+  File "train_n.py", line 271, in evaluate
+    max_overlap=0.45,
+  File "/home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/model.py", line 654, in detect_objects
+    if suppress[box] == 1:
+KeyboardInterrupt

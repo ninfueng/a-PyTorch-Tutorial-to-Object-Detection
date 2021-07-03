@@ -1,0 +1,7 @@
+
+Loaded base model.
+Loaded base model.
+Epoch: [0][0/2069]	Batch Time 13.130 (13.130)	Data Time 0.747 (0.747)	Loss 24.2312 (24.2312)	
+Epoch: [0][200/2069]	Batch Time 0.154 (0.155)	Data Time 0.000 (0.004)	Loss 6.0770 (10.1248)	
+Epoch: [0][400/2069]	Batch Time 0.081 (0.120)	Data Time 0.000 (0.002)	Loss 6.5564 (8.2083)	
+Epoch: [0][600/2069]	Batch Time 0.080 (0.108)	Data Time 0.000 (0.002)	Loss 6.9398 (7.5025)	

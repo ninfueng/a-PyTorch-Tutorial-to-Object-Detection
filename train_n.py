@@ -153,12 +153,13 @@ def main():
             optimizer=optimizer,
             epoch=epoch,
         )
-        # Save checkpoint
-        evaluate(test_loader, model)
-        try:
-            save_checkpoint(epoch, model, optimizer)
-        except AttributeError:
-            pass
+        if epoch != 0 and epoch % 10 == 0:
+            # Save checkpoint
+            evaluate(test_loader, model)
+            try:
+                save_checkpoint(epoch, model, optimizer)
+            except AttributeError:
+                pass
 
 
 def train(train_loader, model, criterion, optimizer, epoch):

@@ -22,3 +22,51 @@ config: {'batch_size': 8, 'iterations': 120000, 'lr': 0.001, 'weight_decay': 0.0
 2021-07-03 17:47:19,796 INFO    MainThread:81991 [wandb_run.py:_redirect():1473] Redirects installed.
 2021-07-03 17:47:19,796 INFO    MainThread:81991 [wandb_init.py:init():547] run started, returning control to user process
 2021-07-03 17:47:25,142 INFO    MainThread:81991 [wandb_watch.py:watch():40] Watching
+2021-07-03 17:58:11,058 INFO    MainThread:81991 [wandb_run.py:_atexit_cleanup():1508] got exitcode: 255
+2021-07-03 17:58:11,066 INFO    MainThread:81991 [wandb_run.py:_restore():1480] restore
+2021-07-03 17:58:13,490 INFO    MainThread:81991 [wandb_run.py:_wait_for_finish():1630] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 828
+  total_bytes: 828
+}
+
+2021-07-03 17:58:13,620 INFO    MainThread:81991 [wandb_run.py:_wait_for_finish():1630] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 828
+  total_bytes: 828
+}
+
+2021-07-03 17:58:14,507 INFO    MainThread:81991 [wandb_run.py:_wait_for_finish():1630] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 828
+  total_bytes: 15932
+}
+
+2021-07-03 17:58:15,391 INFO    MainThread:81991 [wandb_run.py:_wait_for_finish():1630] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 152025
+  total_bytes: 152025
+}
+
+2021-07-03 17:58:15,493 INFO    MainThread:81991 [wandb_run.py:_wait_for_finish():1630] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 152025
+  total_bytes: 152025
+}
+
+2021-07-03 17:58:16,697 INFO    MainThread:81991 [wandb_run.py:_show_summary():1785] rendering summary
+2021-07-03 17:58:16,697 INFO    MainThread:81991 [wandb_run.py:_show_history():1823] rendering history
+2021-07-03 17:58:16,697 INFO    MainThread:81991 [wandb_run.py:_show_files():1852] logging synced files
