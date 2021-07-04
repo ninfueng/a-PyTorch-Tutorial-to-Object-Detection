@@ -1,0 +1,138 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.10.31
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.6.13
+    t:
+      1:
+      - 1
+      2:
+      - 1
+      3:
+      - 1
+      4: 3.6.13
+      5: 0.10.31
+      8:
+      - 5
+batch_size:
+  desc: null
+  value: 8
+iterations:
+  desc: null
+  value: 120000
+lr:
+  desc: null
+  value: 0.001
+t0:
+  desc: null
+  value: t
+t1:
+  desc: null
+  value: t
+t10:
+  desc: null
+  value: t
+t11:
+  desc: null
+  value: t
+t12:
+  desc: null
+  value: t
+t13:
+  desc: null
+  value: t
+t14:
+  desc: null
+  value: t
+t15:
+  desc: null
+  value: t
+t16:
+  desc: null
+  value: t
+t17:
+  desc: null
+  value: t
+t18:
+  desc: null
+  value: t
+t19:
+  desc: null
+  value: t
+t2:
+  desc: null
+  value: t
+t20:
+  desc: null
+  value: t
+t21:
+  desc: null
+  value: t
+t22:
+  desc: null
+  value: t
+t23:
+  desc: null
+  value: t
+t24:
+  desc: null
+  value: t
+t25:
+  desc: null
+  value: t
+t26:
+  desc: null
+  value: t
+t27:
+  desc: null
+  value: t
+t28:
+  desc: null
+  value: t
+t29:
+  desc: null
+  value: t
+t3:
+  desc: null
+  value: t
+t30:
+  desc: null
+  value: t
+t31:
+  desc: null
+  value: t
+t32:
+  desc: null
+  value: t
+t33:
+  desc: null
+  value: t
+t34:
+  desc: null
+  value: t
+t4:
+  desc: null
+  value: t
+t5:
+  desc: null
+  value: t
+t6:
+  desc: null
+  value: t
+t7:
+  desc: null
+  value: t
+t8:
+  desc: null
+  value: t
+t9:
+  desc: null
+  value: t
+weight_decay:
+  desc: null
+  value: 0.0005

@@ -741,6 +741,10 @@ class MultiBoxLoss(nn.Module):
         n_priors = self.priors_cxcy.size(0)
         n_classes = predicted_scores.size(2)
 
+        # BUG: 8732 12764 12764
+        #print(n_priors)
+        #print(predicted_locs.size(1))
+        #print(predicted_scores.size(1))
         assert n_priors == predicted_locs.size(1) == predicted_scores.size(1)
 
         true_locs = torch.zeros(

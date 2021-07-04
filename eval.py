@@ -6,7 +6,12 @@ from pprint import PrettyPrinter
 # Good formatting when printing the APs for each class and mAP
 pp = PrettyPrinter()
 
-# Parameters
+class DataParallel(torch.nn.DataParallel):
+    def __getattr__(self, name):
+        try:
+            return super().__getattr__(name)
+        except AttributeError:
+            return getattr(self.module, name)
 data_folder = "./"
 keep_difficult = True  # difficult ground truth objects must always be considered in mAP calculation, because these objects DO exist!
 batch_size = 64
@@ -106,4 +111,8 @@ def evaluate(test_loader, model):
     print("\nMean Average Precision (mAP): %.3f" % mAP)
 
 if __name__ == "__main__":
+    import sys
+    if not sys.warnoptions:
+        import warnings
+        warnings.simplefilter("ignore")
     evaluate(test_loader, model)

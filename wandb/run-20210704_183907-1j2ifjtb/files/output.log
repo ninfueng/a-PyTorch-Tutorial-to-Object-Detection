@@ -1,0 +1,63 @@
+
+Loaded base model.
+Loaded base model.
+SSD300(
+  (base): VGGBase(
+    (conv1_1): TerConv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv1_2): TerConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pool1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (conv2_1): TerConv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv2_2): TerConv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pool2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (conv3_1): TerConv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv3_2): TerConv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv3_3): TerConv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pool3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (conv4_1): TerConv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv4_2): TerConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv4_3): TerConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pool4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (conv5_1): TerConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv5_2): TerConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv5_3): TerConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pool5): MaxPool2d(kernel_size=3, stride=1, padding=1, dilation=1, ceil_mode=False)
+    (conv6): TerConv2d(512, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(6, 6), dilation=(6, 6))
+    (conv7): TerConv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (aux_convs): AuxiliaryConvolutions(
+    (conv8_1): TerConv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1))
+    (conv8_2): TerConv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    (conv9_1): TerConv2d(512, 128, kernel_size=(1, 1), stride=(1, 1))
+    (conv9_2): TerConv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    (conv10_1): TerConv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+    (conv10_2): TerConv2d(128, 256, kernel_size=(3, 3), stride=(1, 1))
+    (conv11_1): TerConv2d(256, 128, kernel_size=(1, 1), stride=(1, 1))
+    (conv11_2): TerConv2d(128, 256, kernel_size=(3, 3), stride=(1, 1))
+  )
+  (pred_convs): PredictionConvolutions(
+    (loc_conv4_3): TerConv2d(512, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (loc_conv7): TerConv2d(1024, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (loc_conv8_2): TerConv2d(512, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (loc_conv9_2): TerConv2d(256, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (loc_conv10_2): TerConv2d(256, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (loc_conv11_2): TerConv2d(256, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (cl_conv4_3): TerConv2d(512, 84, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (cl_conv7): TerConv2d(1024, 126, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (cl_conv8_2): TerConv2d(512, 126, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (cl_conv9_2): TerConv2d(256, 126, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (cl_conv10_2): TerConv2d(256, 84, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (cl_conv11_2): TerConv2d(256, 84, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+)
+Traceback (most recent call last):
+  File "train_n.py", line 314, in <module>
+    main()
+  File "train_n.py", line 159, in main
+    epoch=epoch,
+  File "train_n.py", line 200, in train
+    predicted_locs, predicted_scores, boxes, labels
+  File "/home/tm_ninnart16/.conda/envs/torch/lib/python3.6/site-packages/torch/nn/modules/module.py", line 547, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/model.py", line 744, in forward
+    assert n_priors == predicted_locs.size(1) == predicted_scores.size(1)
+AssertionError

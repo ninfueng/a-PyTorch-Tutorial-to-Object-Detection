@@ -21,6 +21,7 @@ parser.add_argument("--lr", type=float, default=1e-3)
 parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
 parser.add_argument("--project-name", type=str, default="ssd300")
+# parser.add_argument("--ws", type=str, default="ttttttttttttttttttttttttttttttttttt")
 parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
 parser.add_argument("--wandb", dest="wandb", action="store_true")
 parser.set_defaults(wandb=False)
@@ -49,6 +50,7 @@ decay_lr_to = (
 momentum = 0.9  # momentum
 grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
 cudnn.benchmark = True
+
 hparams = {
     "batch_size": batch_size,
     "iterations": iterations,
@@ -56,10 +58,12 @@ hparams = {
     "weight_decay": weight_decay,
 }
 hparams2 = {f"{ss}{idx}": ss for idx, ss in enumerate(args.ws)}
-wandb.init(
-    project="mixed-ssd300",
-    tags=["object-detection", "quantization"],
-    config=hparams)
+hparams.update(hparams2)
+if args.wandb:
+    wandb.init(
+        project="mixed-ssd300",
+        tags=["object-detection", "quantization"],
+        config=hparams)
 
 # Load eval.py
 pp = PrettyPrinter()
@@ -82,7 +86,10 @@ def main():
         model.base.load_pretrained_layers()
         model.pred_convs.init_conv2d()
         model.aux_convs.init_conv2d()
-        wandb.watch(model)
+
+        print(model)
+
+        # wandb.watch(model)
         model = DataParallel(model)
         # Initialize the optimizer, with twice the default learning rate for biases, as in the original Caffe repo
         biases = list()
@@ -155,11 +162,12 @@ def main():
         )
         if epoch != 0 and epoch % 10 == 0:
             # Save checkpoint
-            evaluate(test_loader, model)
+            mAP = evaluate(test_loader, model)
             try:
                 save_checkpoint(epoch, model, optimizer)
             except AttributeError:
                 pass
+    print(mAP)
 
 
 def train(train_loader, model, criterion, optimizer, epoch):
@@ -297,6 +305,7 @@ def evaluate(test_loader, model):
     # Print AP for each class
     pp.pprint(APs)
     print("\nMean Average Precision (mAP): %.3f" % mAP)
+    return mAP
 
 
 if __name__ == "__main__":

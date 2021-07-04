@@ -1,0 +1,140 @@
+2021-07-04 18:35:16,967 INFO    MainThread:129834 [internal.py:wandb_internal():91] W&B internal server running at pid: 129834, started at: 2021-07-04 18:35:16.966964
+2021-07-04 18:35:16,968 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: check_version
+2021-07-04 18:35:16,969 INFO    WriterThread:129834 [datastore.py:open_for_write():77] open: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/run-3nyvpcfg.wandb
+2021-07-04 18:35:16,970 DEBUG   SenderThread:129834 [sender.py:send():179] send: header
+2021-07-04 18:35:16,970 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: check_version
+2021-07-04 18:35:17,074 DEBUG   SenderThread:129834 [sender.py:send():179] send: run
+2021-07-04 18:35:17,312 INFO    SenderThread:129834 [dir_watcher.py:__init__():168] watching files in: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files
+2021-07-04 18:35:17,313 INFO    SenderThread:129834 [sender.py:_start_run_threads():707] run started: 3nyvpcfg with start time 1625391316
+2021-07-04 18:35:17,313 DEBUG   SenderThread:129834 [sender.py:send():179] send: summary
+2021-07-04 18:35:17,313 INFO    SenderThread:129834 [sender.py:_save_file():829] saving file wandb-summary.json with policy end
+2021-07-04 18:35:17,313 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: run_start
+2021-07-04 18:35:18,326 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/wandb-summary.json
+2021-07-04 18:35:18,530 DEBUG   HandlerThread:129834 [meta.py:__init__():39] meta init
+2021-07-04 18:35:18,530 DEBUG   HandlerThread:129834 [meta.py:__init__():53] meta init done
+2021-07-04 18:35:18,530 DEBUG   HandlerThread:129834 [meta.py:probe():210] probe
+2021-07-04 18:35:18,537 DEBUG   HandlerThread:129834 [meta.py:_setup_git():200] setup git
+2021-07-04 18:35:18,551 DEBUG   HandlerThread:129834 [meta.py:_setup_git():207] setup git done
+2021-07-04 18:35:18,552 DEBUG   HandlerThread:129834 [meta.py:_save_pip():57] save pip
+2021-07-04 18:35:18,553 DEBUG   HandlerThread:129834 [meta.py:_save_pip():71] save pip done
+2021-07-04 18:35:18,553 DEBUG   HandlerThread:129834 [meta.py:_save_conda():78] save conda
+2021-07-04 18:35:19,323 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/conda-environment.yaml
+2021-07-04 18:35:19,323 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/requirements.txt
+2021-07-04 18:35:22,378 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log
+2021-07-04 18:35:24,379 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/conda-environment.yaml
+2021-07-04 18:35:24,381 DEBUG   HandlerThread:129834 [meta.py:_save_conda():86] save conda done
+2021-07-04 18:35:24,382 DEBUG   HandlerThread:129834 [meta.py:probe():252] probe done
+2021-07-04 18:35:24,384 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-04 18:35:24,385 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: stop_status
+2021-07-04 18:35:24,583 DEBUG   SenderThread:129834 [sender.py:send():179] send: files
+2021-07-04 18:35:24,583 INFO    SenderThread:129834 [sender.py:_save_file():829] saving file wandb-metadata.json with policy now
+2021-07-04 18:35:25,160 INFO    Thread-11 :129834 [upload_job.py:push():133] Uploaded file /tmp/tmp60y77y76wandb/3febtm7p-wandb-metadata.json
+2021-07-04 18:35:25,379 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log
+2021-07-04 18:35:25,379 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/wandb-metadata.json
+2021-07-04 18:35:29,381 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log
+2021-07-04 18:35:37,384 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log
+2021-07-04 18:35:37,936 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:37,936 DEBUG   SenderThread:129834 [sender.py:send():179] send: telemetry
+2021-07-04 18:35:37,936 DEBUG   SenderThread:129834 [sender.py:send():179] send: exit
+2021-07-04 18:35:37,936 INFO    SenderThread:129834 [sender.py:send_exit():287] handling exit code: 1
+2021-07-04 18:35:37,936 INFO    SenderThread:129834 [sender.py:send_exit():295] send defer
+2021-07-04 18:35:37,936 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:37,939 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:37,939 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 0
+2021-07-04 18:35:37,939 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:37,939 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 0
+2021-07-04 18:35:37,939 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 1
+2021-07-04 18:35:37,942 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:37,942 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 1
+2021-07-04 18:35:38,049 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:38,050 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:38,050 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 1
+2021-07-04 18:35:38,050 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 2
+2021-07-04 18:35:38,050 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:38,052 DEBUG   SenderThread:129834 [sender.py:send():179] send: stats
+2021-07-04 18:35:38,052 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:38,052 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 2
+2021-07-04 18:35:38,053 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:38,053 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 2
+2021-07-04 18:35:38,053 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 3
+2021-07-04 18:35:38,054 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:38,054 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 3
+2021-07-04 18:35:38,054 DEBUG   SenderThread:129834 [sender.py:send():179] send: summary
+2021-07-04 18:35:38,118 INFO    SenderThread:129834 [sender.py:_save_file():829] saving file wandb-summary.json with policy end
+2021-07-04 18:35:38,118 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:38,118 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 3
+2021-07-04 18:35:38,118 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 4
+2021-07-04 18:35:38,120 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:38,120 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 4
+2021-07-04 18:35:38,120 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:38,120 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 4
+2021-07-04 18:35:38,153 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:38,384 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log
+2021-07-04 18:35:38,384 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/wandb-summary.json
+2021-07-04 18:35:38,384 INFO    Thread-8  :129834 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/config.yaml
+2021-07-04 18:35:38,401 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 5
+2021-07-04 18:35:38,401 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:38,402 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:38,403 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 5
+2021-07-04 18:35:38,403 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:38,403 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 5
+2021-07-04 18:35:38,403 INFO    SenderThread:129834 [dir_watcher.py:finish():282] shutting down directory watcher
+2021-07-04 18:35:38,504 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:39,385 INFO    SenderThread:129834 [dir_watcher.py:finish():312] scan: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files
+2021-07-04 18:35:39,385 INFO    SenderThread:129834 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/conda-environment.yaml conda-environment.yaml
+2021-07-04 18:35:39,385 INFO    SenderThread:129834 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/config.yaml config.yaml
+2021-07-04 18:35:39,386 INFO    SenderThread:129834 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/wandb-metadata.json wandb-metadata.json
+2021-07-04 18:35:39,386 INFO    SenderThread:129834 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/requirements.txt requirements.txt
+2021-07-04 18:35:39,386 INFO    SenderThread:129834 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log output.log
+2021-07-04 18:35:39,386 INFO    SenderThread:129834 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/wandb-summary.json wandb-summary.json
+2021-07-04 18:35:39,386 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 6
+2021-07-04 18:35:39,386 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:39,398 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:39,398 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 6
+2021-07-04 18:35:39,398 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:39,398 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 6
+2021-07-04 18:35:39,398 INFO    SenderThread:129834 [file_pusher.py:finish():176] shutting down file pusher
+2021-07-04 18:35:39,398 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 7
+2021-07-04 18:35:39,408 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:39,408 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 7
+2021-07-04 18:35:39,409 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:39,409 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 7
+2021-07-04 18:35:39,494 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:39,759 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 8
+2021-07-04 18:35:39,760 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:39,760 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:39,760 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 8
+2021-07-04 18:35:39,760 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:39,760 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 8
+2021-07-04 18:35:39,761 INFO    SenderThread:129834 [sender.py:send_request_defer():342] send defer: 9
+2021-07-04 18:35:39,761 DEBUG   SenderThread:129834 [sender.py:send():179] send: final
+2021-07-04 18:35:39,761 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: defer
+2021-07-04 18:35:39,761 DEBUG   SenderThread:129834 [sender.py:send():179] send: footer
+2021-07-04 18:35:39,761 INFO    HandlerThread:129834 [handler.py:handle_request_defer():141] handle defer: 9
+2021-07-04 18:35:39,761 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: defer
+2021-07-04 18:35:39,761 INFO    SenderThread:129834 [sender.py:send_request_defer():304] handle sender defer: 9
+2021-07-04 18:35:39,861 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:39,861 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:39,953 INFO    Thread-15 :129834 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/output.log
+2021-07-04 18:35:39,963 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:39,963 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:39,964 INFO    Thread-12 :129834 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/conda-environment.yaml
+2021-07-04 18:35:39,968 INFO    Thread-13 :129834 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/config.yaml
+2021-07-04 18:35:40,012 INFO    Thread-14 :129834 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/requirements.txt
+2021-07-04 18:35:40,028 INFO    Thread-16 :129834 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/files/wandb-summary.json
+2021-07-04 18:35:40,066 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:40,066 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:40,168 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:40,168 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:40,271 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: poll_exit
+2021-07-04 18:35:40,271 DEBUG   SenderThread:129834 [sender.py:send_request():193] send_request: poll_exit
+2021-07-04 18:35:40,271 INFO    SenderThread:129834 [file_pusher.py:join():181] waiting for file pusher
+2021-07-04 18:35:40,272 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: get_summary
+2021-07-04 18:35:40,273 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: sampled_history
+2021-07-04 18:35:40,273 DEBUG   HandlerThread:129834 [handler.py:handle_request():124] handle_request: shutdown
+2021-07-04 18:35:40,273 INFO    HandlerThread:129834 [handler.py:finish():638] shutting down handler
+2021-07-04 18:35:40,761 INFO    WriterThread:129834 [datastore.py:close():258] close: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183516-3nyvpcfg/run-3nyvpcfg.wandb
+2021-07-04 18:35:41,271 INFO    SenderThread:129834 [sender.py:finish():933] shutting down sender
+2021-07-04 18:35:41,271 INFO    SenderThread:129834 [file_pusher.py:finish():176] shutting down file pusher
+2021-07-04 18:35:41,271 INFO    SenderThread:129834 [file_pusher.py:join():181] waiting for file pusher
+2021-07-04 18:35:41,272 INFO    MainThread:129834 [internal.py:handle_exit():78] Internal process exited

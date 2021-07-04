@@ -1,0 +1,16 @@
+
+Loaded base model.
+Loaded base model.
+Epoch: [0][0/2069]	Batch Time 13.341 (13.341)	Data Time 0.880 (0.880)	Loss 25.3982 (25.3982)	
+Traceback (most recent call last):
+  File "train_n.py", line 313, in <module>
+    main()
+  File "train_n.py", line 158, in main
+    epoch=epoch,
+  File "train_n.py", line 199, in train
+    predicted_locs, predicted_scores, boxes, labels
+  File "/home/tm_ninnart16/.conda/envs/torch/lib/python3.6/site-packages/torch/nn/modules/module.py", line 547, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/model.py", line 845, in forward
+    .to(device)
+KeyboardInterrupt

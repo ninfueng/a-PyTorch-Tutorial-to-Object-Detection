@@ -1,0 +1,60 @@
+2021-07-04 18:38:23,176 INFO    MainThread:130571 [internal.py:wandb_internal():91] W&B internal server running at pid: 130571, started at: 2021-07-04 18:38:23.176508
+2021-07-04 18:38:23,178 DEBUG   HandlerThread:130571 [handler.py:handle_request():124] handle_request: check_version
+2021-07-04 18:38:23,179 DEBUG   SenderThread:130571 [sender.py:send():179] send: header
+2021-07-04 18:38:23,179 DEBUG   SenderThread:130571 [sender.py:send_request():193] send_request: check_version
+2021-07-04 18:38:23,182 INFO    WriterThread:130571 [datastore.py:open_for_write():77] open: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/run-1r2nx1di.wandb
+2021-07-04 18:38:23,274 DEBUG   SenderThread:130571 [sender.py:send():179] send: run
+2021-07-04 18:38:23,511 INFO    SenderThread:130571 [dir_watcher.py:__init__():168] watching files in: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files
+2021-07-04 18:38:23,511 INFO    SenderThread:130571 [sender.py:_start_run_threads():707] run started: 1r2nx1di with start time 1625391502
+2021-07-04 18:38:23,511 DEBUG   SenderThread:130571 [sender.py:send():179] send: summary
+2021-07-04 18:38:23,511 INFO    SenderThread:130571 [sender.py:_save_file():829] saving file wandb-summary.json with policy end
+2021-07-04 18:38:23,514 DEBUG   HandlerThread:130571 [handler.py:handle_request():124] handle_request: run_start
+2021-07-04 18:38:24,524 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/wandb-summary.json
+2021-07-04 18:38:24,733 DEBUG   HandlerThread:130571 [meta.py:__init__():39] meta init
+2021-07-04 18:38:24,733 DEBUG   HandlerThread:130571 [meta.py:__init__():53] meta init done
+2021-07-04 18:38:24,733 DEBUG   HandlerThread:130571 [meta.py:probe():210] probe
+2021-07-04 18:38:24,740 DEBUG   HandlerThread:130571 [meta.py:_setup_git():200] setup git
+2021-07-04 18:38:24,755 DEBUG   HandlerThread:130571 [meta.py:_setup_git():207] setup git done
+2021-07-04 18:38:24,755 DEBUG   HandlerThread:130571 [meta.py:_save_pip():57] save pip
+2021-07-04 18:38:24,756 DEBUG   HandlerThread:130571 [meta.py:_save_pip():71] save pip done
+2021-07-04 18:38:24,756 DEBUG   HandlerThread:130571 [meta.py:_save_conda():78] save conda
+2021-07-04 18:38:25,523 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/requirements.txt
+2021-07-04 18:38:25,523 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/conda-environment.yaml
+2021-07-04 18:38:28,524 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log
+2021-07-04 18:38:30,390 DEBUG   HandlerThread:130571 [meta.py:_save_conda():86] save conda done
+2021-07-04 18:38:30,390 DEBUG   HandlerThread:130571 [meta.py:probe():252] probe done
+2021-07-04 18:38:30,392 DEBUG   HandlerThread:130571 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-04 18:38:30,393 DEBUG   SenderThread:130571 [sender.py:send_request():193] send_request: stop_status
+2021-07-04 18:38:30,525 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/conda-environment.yaml
+2021-07-04 18:38:30,525 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_created():216] file/dir created: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/wandb-metadata.json
+2021-07-04 18:38:30,587 DEBUG   SenderThread:130571 [sender.py:send():179] send: files
+2021-07-04 18:38:30,588 INFO    SenderThread:130571 [sender.py:_save_file():829] saving file wandb-metadata.json with policy now
+2021-07-04 18:38:31,270 INFO    Thread-11 :130571 [upload_job.py:push():133] Uploaded file /tmp/tmppx4ln2t3wandb/3koet9y6-wandb-metadata.json
+2021-07-04 18:38:31,526 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log
+2021-07-04 18:38:35,527 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log
+2021-07-04 18:38:37,529 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log
+2021-07-04 18:38:45,590 DEBUG   HandlerThread:130571 [handler.py:handle_request():124] handle_request: stop_status
+2021-07-04 18:38:45,590 DEBUG   SenderThread:130571 [sender.py:send_request():193] send_request: stop_status
+2021-07-04 18:38:49,538 INFO    Thread-8  :130571 [dir_watcher.py:_on_file_modified():229] file/dir modified: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log
+2021-07-04 18:38:50,560 WARNING MainThread:130571 [internal.py:wandb_internal():147] Internal process interrupt: 1
+2021-07-04 18:38:52,430 WARNING MainThread:130571 [internal.py:wandb_internal():147] Internal process interrupt: 2
+2021-07-04 18:38:52,430 ERROR   MainThread:130571 [internal.py:wandb_internal():150] Internal process interrupted.
+2021-07-04 18:38:52,619 INFO    WriterThread:130571 [datastore.py:close():258] close: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/run-1r2nx1di.wandb
+2021-07-04 18:38:52,620 INFO    SenderThread:130571 [sender.py:finish():933] shutting down sender
+2021-07-04 18:38:52,620 INFO    SenderThread:130571 [dir_watcher.py:finish():282] shutting down directory watcher
+2021-07-04 18:38:52,622 INFO    HandlerThread:130571 [handler.py:finish():638] shutting down handler
+2021-07-04 18:38:53,539 INFO    SenderThread:130571 [dir_watcher.py:finish():312] scan: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files
+2021-07-04 18:38:53,539 INFO    SenderThread:130571 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/conda-environment.yaml conda-environment.yaml
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/config.yaml config.yaml
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/wandb-metadata.json wandb-metadata.json
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/requirements.txt requirements.txt
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log output.log
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [dir_watcher.py:finish():318] scan save: /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/wandb-summary.json wandb-summary.json
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [file_pusher.py:finish():176] shutting down file pusher
+2021-07-04 18:38:53,540 INFO    SenderThread:130571 [file_pusher.py:join():181] waiting for file pusher
+2021-07-04 18:38:54,120 INFO    Thread-14 :130571 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/requirements.txt
+2021-07-04 18:38:54,129 INFO    Thread-13 :130571 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/config.yaml
+2021-07-04 18:38:54,159 INFO    Thread-15 :130571 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/output.log
+2021-07-04 18:38:54,162 INFO    Thread-12 :130571 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/conda-environment.yaml
+2021-07-04 18:38:54,174 INFO    Thread-16 :130571 [upload_job.py:push():133] Uploaded file /home/tm_ninnart16/github/a-PyTorch-Tutorial-to-Object-Detection/wandb/run-20210704_183822-1r2nx1di/files/wandb-summary.json
+2021-07-04 18:38:54,713 INFO    MainThread:130571 [internal.py:handle_exit():78] Internal process exited
