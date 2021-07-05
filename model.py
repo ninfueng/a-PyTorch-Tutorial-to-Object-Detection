@@ -1,9 +1,11 @@
-from torch import nn
-from utils import *
-import torch.nn.functional as F
-from math import sqrt
 from itertools import product as product
+from math import sqrt
+
+import torch.nn.functional as F
 import torchvision
+from torch import nn
+
+from utils import *
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -87,9 +89,7 @@ class VGGBase(nn.Module):
         out = F.relu(self.conv5_1(out))  # (N, 512, 19, 19)
         out = F.relu(self.conv5_2(out))  # (N, 512, 19, 19)
         out = F.relu(self.conv5_3(out))  # (N, 512, 19, 19)
-        out = self.pool5(
-            out
-        )  # (N, 512, 19, 19), pool5 does not reduce dimensions
+        out = self.pool5(out)  # (N, 512, 19, 19), pool5 does not reduce dimensions
 
         out = F.relu(self.conv6(out))  # (N, 1024, 19, 19)
 
@@ -111,9 +111,7 @@ class VGGBase(nn.Module):
         param_names = list(state_dict.keys())
 
         # Pretrained VGG base
-        pretrained_state_dict = torchvision.models.vgg16(
-            pretrained=True
-        ).state_dict()
+        pretrained_state_dict = torchvision.models.vgg16(pretrained=True).state_dict()
         pretrained_param_names = list(pretrained_state_dict.keys())
 
         # Transfer conv. parameters from pretrained model to current model
@@ -254,9 +252,7 @@ class PredictionConvolutions(nn.Module):
         self.loc_conv4_3 = nn.Conv2d(
             512, n_boxes["conv4_3"] * 4, kernel_size=3, padding=1
         )
-        self.loc_conv7 = nn.Conv2d(
-            1024, n_boxes["conv7"] * 4, kernel_size=3, padding=1
-        )
+        self.loc_conv7 = nn.Conv2d(1024, n_boxes["conv7"] * 4, kernel_size=3, padding=1)
         self.loc_conv8_2 = nn.Conv2d(
             512, n_boxes["conv8_2"] * 4, kernel_size=3, padding=1
         )
@@ -341,9 +337,7 @@ class PredictionConvolutions(nn.Module):
         )  # (N, 2166, 4), there are a total 2116 boxes on this feature map
 
         l_conv8_2 = self.loc_conv8_2(conv8_2_feats)  # (N, 24, 10, 10)
-        l_conv8_2 = l_conv8_2.permute(
-            0, 2, 3, 1
-        ).contiguous()  # (N, 10, 10, 24)
+        l_conv8_2 = l_conv8_2.permute(0, 2, 3, 1).contiguous()  # (N, 10, 10, 24)
         l_conv8_2 = l_conv8_2.view(batch_size, -1, 4)  # (N, 600, 4)
 
         l_conv9_2 = self.loc_conv9_2(conv9_2_feats)  # (N, 24, 5, 5)
@@ -351,15 +345,11 @@ class PredictionConvolutions(nn.Module):
         l_conv9_2 = l_conv9_2.view(batch_size, -1, 4)  # (N, 150, 4)
 
         l_conv10_2 = self.loc_conv10_2(conv10_2_feats)  # (N, 16, 3, 3)
-        l_conv10_2 = l_conv10_2.permute(
-            0, 2, 3, 1
-        ).contiguous()  # (N, 3, 3, 16)
+        l_conv10_2 = l_conv10_2.permute(0, 2, 3, 1).contiguous()  # (N, 3, 3, 16)
         l_conv10_2 = l_conv10_2.view(batch_size, -1, 4)  # (N, 36, 4)
 
         l_conv11_2 = self.loc_conv11_2(conv11_2_feats)  # (N, 16, 1, 1)
-        l_conv11_2 = l_conv11_2.permute(
-            0, 2, 3, 1
-        ).contiguous()  # (N, 1, 1, 16)
+        l_conv11_2 = l_conv11_2.permute(0, 2, 3, 1).contiguous()  # (N, 1, 1, 16)
         l_conv11_2 = l_conv11_2.view(batch_size, -1, 4)  # (N, 4, 4)
 
         # Predict classes in localization boxes
@@ -372,9 +362,7 @@ class PredictionConvolutions(nn.Module):
         )  # (N, 5776, n_classes), there are a total 5776 boxes on this feature map
 
         c_conv7 = self.cl_conv7(conv7_feats)  # (N, 6 * n_classes, 19, 19)
-        c_conv7 = c_conv7.permute(
-            0, 2, 3, 1
-        ).contiguous()  # (N, 19, 19, 6 * n_classes)
+        c_conv7 = c_conv7.permute(0, 2, 3, 1).contiguous()  # (N, 19, 19, 6 * n_classes)
         c_conv7 = c_conv7.view(
             batch_size, -1, self.n_classes
         )  # (N, 2166, n_classes), there are a total 2116 boxes on this feature map
@@ -395,9 +383,7 @@ class PredictionConvolutions(nn.Module):
             batch_size, -1, self.n_classes
         )  # (N, 150, n_classes)
 
-        c_conv10_2 = self.cl_conv10_2(
-            conv10_2_feats
-        )  # (N, 4 * n_classes, 3, 3)
+        c_conv10_2 = self.cl_conv10_2(conv10_2_feats)  # (N, 4 * n_classes, 3, 3)
         c_conv10_2 = c_conv10_2.permute(
             0, 2, 3, 1
         ).contiguous()  # (N, 3, 3, 4 * n_classes)
@@ -405,9 +391,7 @@ class PredictionConvolutions(nn.Module):
             batch_size, -1, self.n_classes
         )  # (N, 36, n_classes)
 
-        c_conv11_2 = self.cl_conv11_2(
-            conv11_2_feats
-        )  # (N, 4 * n_classes, 1, 1)
+        c_conv11_2 = self.cl_conv11_2(conv11_2_feats)  # (N, 4 * n_classes, 1, 1)
         c_conv11_2 = c_conv11_2.permute(
             0, 2, 3, 1
         ).contiguous()  # (N, 1, 1, 4 * n_classes)
@@ -466,9 +450,7 @@ class SSD300(nn.Module):
         )  # (N, 512, 38, 38), (N, 1024, 19, 19)
 
         # Rescale conv4_3 after L2 norm
-        norm = (
-            conv4_3_feats.pow(2).sum(dim=1, keepdim=True).sqrt()
-        )  # (N, 1, 38, 38)
+        norm = conv4_3_feats.pow(2).sum(dim=1, keepdim=True).sqrt()  # (N, 1, 38, 38)
         conv4_3_feats = conv4_3_feats / norm  # (N, 512, 38, 38)
         conv4_3_feats = conv4_3_feats * self.rescale_factors  # (N, 512, 38, 38)
         # (PyTorch autobroadcasts singleton dimensions during arithmetic)
@@ -584,9 +566,7 @@ class SSD300(nn.Module):
         """
         batch_size = predicted_locs.size(0)
         n_priors = self.priors_cxcy.size(0)
-        predicted_scores = F.softmax(
-            predicted_scores, dim=2
-        )  # (N, 8732, n_classes)
+        predicted_scores = F.softmax(predicted_scores, dim=2)  # (N, 8732, n_classes)
 
         # Lists to store final predicted boxes, labels, and scores for all images
         all_images_boxes = list()
@@ -629,9 +609,7 @@ class SSD300(nn.Module):
                 class_scores, sort_ind = class_scores.sort(
                     dim=0, descending=True
                 )  # (n_qualified), (n_min_score)
-                class_decoded_locs = class_decoded_locs[
-                    sort_ind
-                ]  # (n_min_score, 4)
+                class_decoded_locs = class_decoded_locs[sort_ind]  # (n_min_score, 4)
 
                 # Find the overlap between predicted boxes
                 overlap = find_jaccard_overlap(
@@ -642,9 +620,7 @@ class SSD300(nn.Module):
 
                 # A torch.uint8 (byte) tensor to keep track of which predicted boxes to suppress
                 # 1 implies suppress, 0 implies don't suppress
-                suppress = torch.zeros(
-                    (n_above_min_score), dtype=torch.uint8
-                ).to(
+                suppress = torch.zeros((n_above_min_score), dtype=torch.uint8).to(
                     device
                 )  # (n_qualified)
 
@@ -657,7 +633,10 @@ class SSD300(nn.Module):
                     # Suppress boxes whose overlaps (with this box) are greater than maximum overlap
                     # Find such boxes and update suppress indices
                     # suppress = torch.max(suppress, overlap[box] > max_overlap)
-                    suppress = torch.max(suppress, (overlap[box] > max_overlap).to(torch.uint8).to(device))
+                    suppress = torch.max(
+                        suppress,
+                        (overlap[box] > max_overlap).to(torch.uint8).to(device),
+                    )
                     # The max operation retains previously suppressed boxes, like an 'OR' operation
 
                     # Don't suppress this box, even though it has an overlap of 1 with itself
@@ -666,17 +645,13 @@ class SSD300(nn.Module):
                 # Store only unsuppressed boxes for this class
                 image_boxes.append(class_decoded_locs[1 - suppress])
                 image_labels.append(
-                    torch.LongTensor((1 - suppress).sum().item() * [c]).to(
-                        device
-                    )
+                    torch.LongTensor((1 - suppress).sum().item() * [c]).to(device)
                 )
                 image_scores.append(class_scores[1 - suppress])
 
             # If no object in any class is found, store a placeholder for 'background'
             if len(image_boxes) == 0:
-                image_boxes.append(
-                    torch.FloatTensor([[0.0, 0.0, 1.0, 1.0]]).to(device)
-                )
+                image_boxes.append(torch.FloatTensor([[0.0, 0.0, 1.0, 1.0]]).to(device))
                 image_labels.append(torch.LongTensor([0]).to(device))
                 image_scores.append(torch.FloatTensor([0.0]).to(device))
 
@@ -688,9 +663,7 @@ class SSD300(nn.Module):
 
             # Keep only the top k objects
             if n_objects > top_k:
-                image_scores, sort_ind = image_scores.sort(
-                    dim=0, descending=True
-                )
+                image_scores, sort_ind = image_scores.sort(dim=0, descending=True)
                 image_scores = image_scores[:top_k]  # (top_k)
                 image_boxes = image_boxes[sort_ind][:top_k]  # (top_k, 4)
                 image_labels = image_labels[sort_ind][:top_k]  # (top_k)
@@ -742,14 +715,12 @@ class MultiBoxLoss(nn.Module):
         n_classes = predicted_scores.size(2)
 
         # BUG: 8732 12764 12764
-        #print(n_priors)
-        #print(predicted_locs.size(1))
-        #print(predicted_scores.size(1))
+        # print(n_priors)
+        # print(predicted_locs.size(1))
+        # print(predicted_scores.size(1))
         assert n_priors == predicted_locs.size(1) == predicted_scores.size(1)
 
-        true_locs = torch.zeros(
-            (batch_size, n_priors, 4), dtype=torch.float
-        ).to(
+        true_locs = torch.zeros((batch_size, n_priors, 4), dtype=torch.float).to(
             device
         )  # (N, 8732, 4)
         true_classes = torch.zeros((batch_size, n_priors), dtype=torch.long).to(
@@ -765,9 +736,7 @@ class MultiBoxLoss(nn.Module):
             )  # (n_objects, 8732)
 
             # For each prior, find the object that has the maximum overlap
-            overlap_for_each_prior, object_for_each_prior = overlap.max(
-                dim=0
-            )  # (8732)
+            overlap_for_each_prior, object_for_each_prior = overlap.max(dim=0)  # (8732)
 
             # We don't want a situation where an object is not represented in our positive (non-background) priors -
             # 1. An object might not be the best object for all priors, and is therefore not in object_for_each_prior.
@@ -788,9 +757,7 @@ class MultiBoxLoss(nn.Module):
             # Labels for each prior
             label_for_each_prior = labels[i][object_for_each_prior]  # (8732)
             # Set priors whose overlaps with objects are less than the threshold to be background (no object)
-            label_for_each_prior[
-                overlap_for_each_prior < self.threshold
-            ] = 0  # (8732)
+            label_for_each_prior[overlap_for_each_prior < self.threshold] = 0  # (8732)
 
             # Store
             true_classes[i] = label_for_each_prior
@@ -848,12 +815,8 @@ class MultiBoxLoss(nn.Module):
             .expand_as(conf_loss_neg)
             .to(device)
         )  # (N, 8732)
-        hard_negatives = hardness_ranks < n_hard_negatives.unsqueeze(
-            1
-        )  # (N, 8732)
-        conf_loss_hard_neg = conf_loss_neg[
-            hard_negatives
-        ]  # (sum(n_hard_negatives))
+        hard_negatives = hardness_ranks < n_hard_negatives.unsqueeze(1)  # (N, 8732)
+        conf_loss_hard_neg = conf_loss_neg[hard_negatives]  # (sum(n_hard_negatives))
 
         # As in the paper, averaged over positive priors only, although computed over both positive and hard-negative priors
         conf_loss = (

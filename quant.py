@@ -1,8 +1,9 @@
+from typing import Any, List
+
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Any, List
 
 
 def multi_getattr(obj: object, multiattr: str) -> Any:
@@ -149,12 +150,8 @@ class TerQuant(torch.autograd.Function):
             torch.tensor(1.0).to(device),
             torch.tensor(0.0).to(device),
         )
-        w_ter = torch.where(
-            w.abs() <= -threshold, torch.tensor(0.0).to(device), w_ter
-        )
-        w_ter = torch.where(
-            w < -threshold, torch.tensor(-1.0).to(device), w_ter
-        )
+        w_ter = torch.where(w.abs() <= -threshold, torch.tensor(0.0).to(device), w_ter)
+        w_ter = torch.where(w < -threshold, torch.tensor(-1.0).to(device), w_ter)
         return w_ter
 
     @staticmethod
@@ -197,6 +194,7 @@ class BinConv2d(nn.Conv2d):
         self.weight_q = BinQuant.apply(self.weight)
         y = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding)
         return y
+
 
 class TerLinear(nn.Linear):
     def __init__(self, *args, **kwargs):
@@ -270,9 +268,10 @@ def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
 
 
 if __name__ == "__main__":
-    from model_n import SSD300
     from functools import reduce
+
     import wandb
+    from model_n import SSD300
 
     model = SSD300(11)
     ws = ["t" for _ in range(35)]
@@ -292,10 +291,9 @@ if __name__ == "__main__":
         project="mixed-ssd300",
         notes="",
         tags=["object-detection", "quantization"],
-        config=args)
+        config=args,
+    )
     wandb.watch(model)
     wandb.log()
 
-
     # Maybe using AttrDict with wandb log
-

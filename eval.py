@@ -1,10 +1,13 @@
-from utils import *
-from datasets import PascalVOCDataset
-from tqdm import tqdm
 from pprint import PrettyPrinter
+
+from tqdm import tqdm
+
+from datasets import PascalVOCDataset
+from utils import *
 
 # Good formatting when printing the APs for each class and mAP
 pp = PrettyPrinter()
+
 
 class DataParallel(torch.nn.DataParallel):
     def __getattr__(self, name):
@@ -12,6 +15,8 @@ class DataParallel(torch.nn.DataParallel):
             return super().__getattr__(name)
         except AttributeError:
             return getattr(self.module, name)
+
+
 data_folder = "./"
 keep_difficult = True  # difficult ground truth objects must always be considered in mAP calculation, because these objects DO exist!
 batch_size = 64
@@ -39,6 +44,7 @@ test_loader = torch.utils.data.DataLoader(
     num_workers=workers,
     pin_memory=True,
 )
+
 
 def evaluate(test_loader, model):
     """
@@ -110,9 +116,12 @@ def evaluate(test_loader, model):
     pp.pprint(APs)
     print("\nMean Average Precision (mAP): %.3f" % mAP)
 
+
 if __name__ == "__main__":
     import sys
+
     if not sys.warnoptions:
         import warnings
+
         warnings.simplefilter("ignore")
     evaluate(test_loader, model)

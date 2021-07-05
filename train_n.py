@@ -1,16 +1,18 @@
+import argparse
 import time
+from multiprocessing import cpu_count
+from pprint import PrettyPrinter
+
 import torch.backends.cudnn as cudnn
 import torch.optim
 import torch.utils.data
-from model import SSD300, MultiBoxLoss
-from datasets import PascalVOCDataset
-from utils import *
-import argparse
-from multiprocessing import cpu_count
-import wandb
-from quant import cvt2quant
-from pprint import PrettyPrinter
 from tqdm import tqdm
+
+import wandb
+from datasets import PascalVOCDataset
+from model import SSD300, MultiBoxLoss
+from quant import cvt2quant
+from utils import *
 
 parser = argparse.ArgumentParser(description="mixed-ssd300.")
 parser.add_argument("--batch_size", type=int, default=8)
@@ -37,16 +39,14 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Learning parameters
 checkpoint = None  # path to model checkpoint, None if none
 batch_size = args.batch_size  # batch size
-iterations = args.iterations # number of iterations to train
+iterations = args.iterations  # number of iterations to train
 lr = args.lr  # learning rate
 weight_decay = args.weight_decay  # weight decay
 
-workers = args.workers # number of workers for loading data in the DataLoader
+workers = args.workers  # number of workers for loading data in the DataLoader
 print_freq = 200  # print training status every __ batches
 decay_lr_at = [80000, 100000]  # decay learning rate after these many iterations
-decay_lr_to = (
-    0.1  # decay learning rate to this fraction of the existing learning rate
-)
+decay_lr_to = 0.1  # decay learning rate to this fraction of the existing learning rate
 momentum = 0.9  # momentum
 grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
 cudnn.benchmark = True
@@ -63,10 +63,10 @@ if args.wandb:
     wandb.init(
         project="mixed-ssd300",
         tags=["object-detection", "quantization"],
-        config=hparams)
-
-# Load eval.py
+        config=hparams,
+    )
 pp = PrettyPrinter()
+
 
 class DataParallel(torch.nn.DataParallel):
     def __getattr__(self, name):
@@ -198,9 +198,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
         )  # (N, 8732, 4), (N, 8732, n_classes)
 
         # Loss
-        loss = criterion(
-            predicted_locs, predicted_scores, boxes, labels
-        )  # scalar
+        loss = criterion(predicted_locs, predicted_scores, boxes, labels)  # scalar
         # Backward prop.
         optimizer.zero_grad()
         loss.backward()
@@ -230,6 +228,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
                     loss=losses,
                 )
             )
+
+
 #    del (
 #        predicted_locs,
 #        predicted_scores,
@@ -238,6 +238,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 #        labels,
 #    )  # free some memory since their histories may be stored
 #
+
 
 def evaluate(test_loader, model):
     """
@@ -305,12 +306,16 @@ def evaluate(test_loader, model):
     # Print AP for each class
     pp.pprint(APs)
     print("\nMean Average Precision (mAP): %.3f" % mAP)
+    # To return to hyper tunner script.
+    print(mAP)
     return mAP
 
 
 if __name__ == "__main__":
     import sys
+
     if not sys.warnoptions:
         import warnings
+
         warnings.simplefilter("ignore")
     main()

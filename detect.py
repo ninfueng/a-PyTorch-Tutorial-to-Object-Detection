@@ -1,6 +1,7 @@
-from torchvision import transforms
-from utils import *
 from PIL import Image, ImageDraw, ImageFont
+from torchvision import transforms
+
+from utils import *
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -16,9 +17,7 @@ model.eval()
 # Transforms
 resize = transforms.Resize((300, 300))
 to_tensor = transforms.ToTensor()
-normalize = transforms.Normalize(
-    mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
-)
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
 
 def detect(original_image, min_score, max_overlap, top_k, suppress=None):

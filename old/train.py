@@ -1,9 +1,11 @@
 import time
+
 import torch.backends.cudnn as cudnn
 import torch.optim
 import torch.utils.data
-from model import SSD300, MultiBoxLoss
+
 from datasets import PascalVOCDataset
+from model import SSD300, MultiBoxLoss
 from utils import *
 
 # Data parameters
@@ -24,13 +26,12 @@ workers = 4  # number of workers for loading data in the DataLoader
 print_freq = 200  # print training status every __ batches
 lr = 1e-3  # learning rate
 decay_lr_at = [80000, 100000]  # decay learning rate after these many iterations
-decay_lr_to = (
-    0.1  # decay learning rate to this fraction of the existing learning rate
-)
+decay_lr_to = 0.1  # decay learning rate to this fraction of the existing learning rate
 momentum = 0.9  # momentum
 weight_decay = 5e-4  # weight decay
 grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
 cudnn.benchmark = True
+
 
 def main():
     """
@@ -141,9 +142,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
         )  # (N, 8732, 4), (N, 8732, n_classes)
 
         # Loss
-        loss = criterion(
-            predicted_locs, predicted_scores, boxes, labels
-        )  # scalar
+        loss = criterion(predicted_locs, predicted_scores, boxes, labels)  # scalar
 
         # Backward prop.
         optimizer.zero_grad()

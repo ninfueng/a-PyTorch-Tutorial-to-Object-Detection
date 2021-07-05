@@ -1,8 +1,10 @@
-import torch
-from torch.utils.data import Dataset
 import json
 import os
+
+import torch
 from PIL import Image
+from torch.utils.data import Dataset
+
 from utils import transform
 
 
@@ -25,13 +27,9 @@ class PascalVOCDataset(Dataset):
         self.keep_difficult = keep_difficult
 
         # Read data files
-        with open(
-            os.path.join(data_folder, self.split + "_images.json"), "r"
-        ) as j:
+        with open(os.path.join(data_folder, self.split + "_images.json"), "r") as j:
             self.images = json.load(j)
-        with open(
-            os.path.join(data_folder, self.split + "_objects.json"), "r"
-        ) as j:
+        with open(os.path.join(data_folder, self.split + "_objects.json"), "r") as j:
             self.objects = json.load(j)
 
         assert len(self.images) == len(self.objects)
