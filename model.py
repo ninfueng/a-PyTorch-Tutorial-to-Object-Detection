@@ -815,12 +815,15 @@ class MultiBoxLoss(nn.Module):
 if __name__ == "__main__":
     from quant import multi_getattr, multi_setattr, cvt2quant
     from functools import reduce
+    import torch
+
     model = SSD300(21)
     ws = reduce(lambda x, y: x + y, ["t" for _ in range(35)])
     cvt2quant(model, ws)
     model.eval()
     # o0, o1 = model.forward(torch.zeros(1, 3, 300, 300))
-    o0, o1 = model.forward(torch.randn(1, 3, 300, 300))
+    o0, o1 = model.forward(
+        torch.randn(1, 3, 300, 300))
     print(o0)
     print(o1)
     # print(o0.shape, o1.shape)

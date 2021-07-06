@@ -296,6 +296,10 @@ def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
             raise NotImplementedError(
                 f"quant_char: {quant_char} can be only `f`, `b`, and `t`."
             )
+        quant_layer = nn.Sequential(
+            quant_layer,
+            nn.BatchNorm2d(kwargs["out_channels"])
+        )
 
     elif isinstance(layer, nn.Linear):
         kwargs = {
@@ -313,6 +317,11 @@ def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
             raise NotImplementedError(
                 f"quant_char: {quant_char} can be only `f`, `b`, and `t`."
             )
+        quant_layer = nn.Sequential(
+            quant_layer,
+            nn.BatchNorm1d(kwargs["out_features"])
+        )
+
     else:
         raise NotImplementedError("Support only nn.Conv2d and nn.Linear.")
     return quant_layer
@@ -322,22 +331,24 @@ if __name__ == "__main__":
     from functools import reduce
 
     import wandb
-    from model_n import SSD300
+    from model import SSD300
 
-    model = SSD300(11)
+    model = SSD300(21)
     # ws = ["t" for _ in range(35)]
     ws = ["b" for _ in range(35)]
     # ws = ["f" for _ in range(35)]
     ws = reduce(lambda x, y: x + y, ws)
     cvt2quant(model, ws)
     print(model)
-    model.forward(torch.zeros(1, 3, 300, 300))
+    model.eval()
+    model.forward(torch.zeros(2, 3, 300, 300))
 
     # TODO: Adding hyper-tunner.
-    model.base.load_pretrained_layers()
-    model.pred_convs.init_conv2d()
-    model.aux_convs.init_conv2d()
-
+#
+#    model.base.load_pretrained_layers()
+#    model.pred_convs.init_conv2d()
+#    model.aux_convs.init_conv2d()
+#
 
 #    wandb.init(
 #        project="mixed-ssd300",
