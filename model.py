@@ -11,10 +11,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class VGGBase(nn.Module):
-    """
-    VGG base convolutions to produce lower-level feature maps.
-    """
-
     def __init__(self):
         super(VGGBase, self).__init__()
 
@@ -54,9 +50,7 @@ class VGGBase(nn.Module):
         )  # atrous convolution
 
         self.conv7 = nn.Conv2d(1024, 1024, kernel_size=1)
-
-        # Load pretrained layers
-        self.load_pretrained_layers()
+        # self.load_pretrained_layers()
 
     def forward(self, image):
         """
@@ -93,8 +87,6 @@ class VGGBase(nn.Module):
 
         out = F.relu(self.conv6(out))  # (N, 1024, 19, 19)
         conv7_feats = F.relu(self.conv7(out))  # (N, 1024, 19, 19)
-
-        # Lower-level feature maps
         return conv4_3_feats, conv7_feats
 
     def load_pretrained_layers(self):
@@ -180,7 +172,7 @@ class AuxiliaryConvolutions(nn.Module):
         )  # dim. reduction because padding = 0
 
         # Initialize convolutions' parameters
-        self.init_conv2d()
+        # self.init_conv2d()
 
     def init_conv2d(self):
         """
@@ -286,7 +278,7 @@ class PredictionConvolutions(nn.Module):
         )
 
         # Initialize convolutions' parameters
-        self.init_conv2d()
+        # self.init_conv2d()
 
     def init_conv2d(self):
         """
@@ -413,10 +405,6 @@ class PredictionConvolutions(nn.Module):
 
 
 class SSD300(nn.Module):
-    """
-    The SSD300 network - encapsulates the base VGG network, auxiliary, and prediction convolutions.
-    """
-
     def __init__(self, n_classes):
         super(SSD300, self).__init__()
 
@@ -447,7 +435,6 @@ class SSD300(nn.Module):
         conv4_3_feats, conv7_feats = self.base(
             image
         )  # (N, 512, 38, 38), (N, 1024, 19, 19)
-
         # Rescale conv4_3 after L2 norm
         norm = conv4_3_feats.pow(2).sum(dim=1, keepdim=True).sqrt()  # (N, 1, 38, 38)
         conv4_3_feats = conv4_3_feats / norm  # (N, 512, 38, 38)
@@ -832,6 +819,9 @@ if __name__ == "__main__":
     ws = reduce(lambda x, y: x + y, ["t" for _ in range(35)])
     cvt2quant(model, ws)
     model.eval()
-    o0, o1 = model.forward(torch.zeros(1, 3, 300, 300))
+    # o0, o1 = model.forward(torch.zeros(1, 3, 300, 300))
+    o0, o1 = model.forward(torch.randn(1, 3, 300, 300))
+    print(o0)
+    print(o1)
     # print(o0.shape, o1.shape)
     

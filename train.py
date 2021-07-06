@@ -19,7 +19,7 @@ parser.add_argument("--batch_size", type=int, default=8)
 parser.add_argument("--test_batch_size", type=int, default=64)
 parser.add_argument("--iterations", type=int, default=120_000)
 parser.add_argument("--weight-decay", type=float, default=5e-4)
-parser.add_argument("--lr", type=float, default=1e-3)
+parser.add_argument("--lr", type=float, default=1e-8)
 parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
 parser.add_argument("--project-name", type=str, default="ssd300")
@@ -47,7 +47,8 @@ print_freq = 200  # print training status every __ batches
 decay_lr_at = [80000, 100000]  # decay learning rate after these many iterations
 decay_lr_to = 0.1  # decay learning rate to this fraction of the existing learning rate
 momentum = 0.9
-grad_clip = 1.0
+# grad_clip = 1.0
+grad_clip = None 
 # grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
 cudnn.benchmark = True
 
@@ -169,25 +170,15 @@ def main():
 
 
 def train(train_loader, model, criterion, optimizer, epoch):
-    """
-    One epoch's training.
-    :param train_loader: DataLoader for training data
-    :param model: model
-    :param criterion: MultiBox loss
-    :param optimizer: optimizer
-    :param epoch: epoch number
-    """
     model.train()  # training mode enables dropout
     batch_time = AverageMeter()  # forward prop. + back prop. time
     data_time = AverageMeter()  # data loading time
     losses = AverageMeter()  # loss
 
     start = time.time()
-    # Batches
     for i, (images, boxes, labels, _) in enumerate(train_loader):
         data_time.update(time.time() - start)
 
-        # Move to default device
         images = images.to(device)  # (batch_size (N), 3, 300, 300)
         boxes = [b.to(device) for b in boxes]
         labels = [l.to(device) for l in labels]
@@ -195,17 +186,13 @@ def train(train_loader, model, criterion, optimizer, epoch):
             images
         )  # (N, 8732, 4), (N, 8732, n_classes)
 
-        # Loss
-        loss = criterion(predicted_locs, predicted_scores, boxes, labels)  # scalar
-        # Backward prop.
+        loss = criterion(predicted_locs, predicted_scores, boxes, labels)
         optimizer.zero_grad()
         loss.backward()
 
-        # Clip gradients, if necessary
         if grad_clip is not None:
             clip_gradient(optimizer, grad_clip)
 
-        # Update model
         optimizer.step()
         losses.update(loss.item(), images.size(0))
         batch_time.update(time.time() - start)
@@ -240,7 +227,6 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
 def evaluate(test_loader, model):
     model.eval()
-    # Lists to store detected and true boxes, labels, scores
     det_boxes = list()
     det_labels = list()
     det_scores = list()
@@ -255,10 +241,8 @@ def evaluate(test_loader, model):
             tqdm(test_loader, desc="Evaluating")
         ):
             images = images.to(device)  # (N, 3, 300, 300)
-            # Forward prop.
             predicted_locs, predicted_scores = model(images)
 
-            # Detect objects in SSD output
             (
                 det_boxes_batch,
                 det_labels_batch,

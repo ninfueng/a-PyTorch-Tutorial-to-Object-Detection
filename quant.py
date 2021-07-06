@@ -195,8 +195,9 @@ class BinConv2d(nn.Conv2d):
 
     def forward(self, x, *args):
         self.weight_q = BinQuant.apply(self.weight)
-        y = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding,
-                     self.dilation, self.groups)
+        y = F.conv2d(
+            x, self.weight_q, self.bias, self.stride, self.padding,
+            self.dilation, self.groups)
         return y
 
 
@@ -223,6 +224,51 @@ class TerConv2d(nn.Conv2d):
         x = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding,
                      self.dilation, self.groups)
         return x
+#def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
+#    """ """
+#    assert isinstance(quant_char, str)
+#    if isinstance(layer, nn.Conv2d):
+#        kwargs = {
+#            "in_channels": layer.in_channels,
+#            "out_channels": layer.out_channels,
+#            "kernel_size": layer.kernel_size,
+#            "stride": layer.stride,
+#            "padding": layer.padding,
+#            "dilation": layer.dilation,
+#            "groups": layer.groups,
+#            "bias": layer.bias is not None,
+#            "padding_mode": layer.padding_mode,
+#        }
+#        if quant_char == "f":
+#            quant_layer = nn.Conv2d(**kwargs)
+#        elif quant_char == "t":
+#            quant_layer = TerConv2d(**kwargs)
+#        elif quant_char == "b":
+#            quant_layer = BinConv2d(**kwargs)
+#        else:
+#            raise NotImplementedError(
+#                f"quant_char: {quant_char} can be only `f`, `b`, and `t`."
+#            )
+#
+#    elif isinstance(layer, nn.Linear):
+#        kwargs = {
+#            "in_features": layer.in_features,
+#            "out_features": layer.out_features,
+#            "bias": layer.bias is not None,
+#        }
+#        if quant_char == "f":
+#            quant_layer = nn.Linear(**kwargs)
+#        elif quant_char == "t":
+#            quant_layer = TerLinear(**kwargs)
+#        elif quant_char == "b":
+#            quant_layer = BinLinear(**kwargs)
+#        else:
+#            raise NotImplementedError(
+#                f"quant_char: {quant_char} can be only `f`, `b`, and `t`."
+#            )
+#    else:
+#        raise NotImplementedError("Support only nn.Conv2d and nn.Linear.")
+#    return quant_layer
 
 
 def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
@@ -292,7 +338,6 @@ if __name__ == "__main__":
     model.pred_convs.init_conv2d()
     model.aux_convs.init_conv2d()
 
-    model.forward(torch.)
 
 #    wandb.init(
 #        project="mixed-ssd300",
