@@ -24,19 +24,18 @@ parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
 parser.add_argument("--project-name", type=str, default="ssd300")
 # parser.add_argument("--ws", type=str, default="ttttttttttttttttttttttttttttttttttt")
-parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
+# parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
+parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 parser.add_argument("--wandb", dest="wandb", action="store_true")
 parser.set_defaults(wandb=False)
 args = parser.parse_args()
 
 assert len(args.ws) == 35
-# Data parameters
 data_folder = "./"  # folder with data files
 keep_difficult = True  # use objects considered difficult to detect?
 n_classes = len(label_map)  # number of different types of objects
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Learning parameters
 checkpoint = None  # path to model checkpoint, None if none
 batch_size = args.batch_size  # batch size
 iterations = args.iterations  # number of iterations to train
@@ -47,8 +46,9 @@ workers = args.workers  # number of workers for loading data in the DataLoader
 print_freq = 200  # print training status every __ batches
 decay_lr_at = [80000, 100000]  # decay learning rate after these many iterations
 decay_lr_to = 0.1  # decay learning rate to this fraction of the existing learning rate
-momentum = 0.9  # momentum
-grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
+momentum = 0.9
+grad_clip = 1.0
+# grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
 cudnn.benchmark = True
 
 hparams = {
@@ -67,14 +67,12 @@ if args.wandb:
     )
 pp = PrettyPrinter()
 
-
 class DataParallel(torch.nn.DataParallel):
     def __getattr__(self, name):
         try:
             return super().__getattr__(name)
         except AttributeError:
             return getattr(self.module, name)
-
 
 def main():
     global start_epoch, label_map, epoch, checkpoint, decay_lr_at
@@ -83,30 +81,38 @@ def main():
         start_epoch = 0
         model = SSD300(n_classes=n_classes)
         cvt2quant(model, args.ws)
-        model.base.load_pretrained_layers()
-        model.pred_convs.init_conv2d()
-        model.aux_convs.init_conv2d()
-
+#        model.base.load_pretrained_layers()
+#        model.pred_convs.init_conv2d()
+#        model.aux_convs.init_conv2d()
         print(model)
 
-        # wandb.watch(model)
+        if args.wandb:
+            wandb.watch(model)
+
         model = DataParallel(model)
         # Initialize the optimizer, with twice the default learning rate for biases, as in the original Caffe repo
         biases = list()
         not_biases = list()
-        for param_name, param in model.named_parameters():
-            if param.requires_grad:
-                if param_name.endswith(".bias"):
-                    biases.append(param)
-                else:
-                    not_biases.append(param)
-        optimizer = torch.optim.SGD(
-            params=[{"params": biases, "lr": 2 * lr}, {"params": not_biases}],
+        # TODO: checking that model parameters problem?
+#        for param_name, param in model.named_parameters():
+#            if param.requires_grad:
+#                if param_name.endswith(".bias"):
+#                    biases.append(param)
+#                else:
+#                    not_biases.append(param)
+
+#        optimizer = torch.optim.SGD(
+#            params=[{"params": biases, "lr": 2 * lr}, {"params": not_biases}],
+#            lr=lr,
+#            momentum=momentum,
+#            weight_decay=weight_decay,
+#        )
+       
+        optimizer = torch.optim.Adam(
+            params=model.parameters(),
             lr=lr,
-            momentum=momentum,
             weight_decay=weight_decay,
         )
-
     else:
         checkpoint = torch.load(checkpoint)
         start_epoch = checkpoint["epoch"] + 1
@@ -139,20 +145,13 @@ def main():
         num_workers=workers,
         pin_memory=True,
     )
-
-    # Calculate total number of epochs to train and the epochs to decay learning rate at (i.e. convert iterations to epochs)
-    # To convert iterations to epochs, divide iterations by the number of iterations per epoch
-    # The paper trains for 120,000 iterations with a batch size of 32, decays after 80,000 and 100,000 iterations
     epochs = iterations // (len(train_dataset) // 32)
     decay_lr_at = [it // (len(train_dataset) // 32) for it in decay_lr_at]
 
-    # Epochs
     for epoch in range(start_epoch, epochs):
-        # Decay learning rate at particular epochs
         if epoch in decay_lr_at:
             adjust_learning_rate(optimizer, decay_lr_to)
 
-        # One epoch's training
         train(
             train_loader=train_loader,
             model=model,
@@ -161,7 +160,6 @@ def main():
             epoch=epoch,
         )
         if epoch != 0 and epoch % 10 == 0:
-            # Save checkpoint
             mAP = evaluate(test_loader, model)
             try:
                 save_checkpoint(epoch, model, optimizer)
@@ -241,13 +239,6 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
 
 def evaluate(test_loader, model):
-    """
-    Evaluate.
-
-    :param test_loader: DataLoader for test data
-    :param model: model
-    """
-    # Make sure it's in eval mode
     model.eval()
     # Lists to store detected and true boxes, labels, scores
     det_boxes = list()
@@ -260,7 +251,6 @@ def evaluate(test_loader, model):
     )  # it is necessary to know which objects are 'difficult', see 'calculate_mAP' in utils.py
 
     with torch.no_grad():
-        # Batches
         for i, (images, boxes, labels, difficulties) in enumerate(
             tqdm(test_loader, desc="Evaluating")
         ):
@@ -313,9 +303,8 @@ def evaluate(test_loader, model):
 
 if __name__ == "__main__":
     import sys
-
     if not sys.warnoptions:
         import warnings
-
         warnings.simplefilter("ignore")
     main()
+

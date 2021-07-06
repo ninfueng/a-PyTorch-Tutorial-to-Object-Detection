@@ -92,7 +92,6 @@ class VGGBase(nn.Module):
         out = self.pool5(out)  # (N, 512, 19, 19), pool5 does not reduce dimensions
 
         out = F.relu(self.conv6(out))  # (N, 1024, 19, 19)
-
         conv7_feats = F.relu(self.conv7(out))  # (N, 1024, 19, 19)
 
         # Lower-level feature maps
@@ -714,7 +713,7 @@ class MultiBoxLoss(nn.Module):
         n_priors = self.priors_cxcy.size(0)
         n_classes = predicted_scores.size(2)
 
-        # BUG: 8732 12764 12764
+        # BUG: 8732, 12764, 12764
         # print(n_priors)
         # print(predicted_locs.size(1))
         # print(predicted_scores.size(1))
@@ -823,18 +822,16 @@ class MultiBoxLoss(nn.Module):
             conf_loss_hard_neg.sum() + conf_loss_pos.sum()
         ) / n_positives.sum().float()  # (), scalar
 
-        # TOTAL LOSS
-
         return conf_loss + self.alpha * loc_loss
 
 
 if __name__ == "__main__":
-    model = SSD300(11)
-    print(model)
-
-    from quant import multi_getattr, multi_setattr
-
-    m = multi_getattr(model, "base.conv1_1")
-    print(m)
-    multi_setattr(model, "base.conv1_1", nn.Conv2d(1, 2, 3))
-    print(model)
+    from quant import multi_getattr, multi_setattr, cvt2quant
+    from functools import reduce
+    model = SSD300(21)
+    ws = reduce(lambda x, y: x + y, ["t" for _ in range(35)])
+    cvt2quant(model, ws)
+    model.eval()
+    o0, o1 = model.forward(torch.zeros(1, 3, 300, 300))
+    # print(o0.shape, o1.shape)
+    

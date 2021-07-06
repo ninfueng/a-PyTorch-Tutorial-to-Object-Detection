@@ -45,6 +45,7 @@ def cvt2quant(model: nn.Module, quant_str: str) -> None:
         "base.conv5_3",
         "base.conv6",
         "base.conv7",
+
         "aux_convs.conv8_1",
         "aux_convs.conv8_2",
         "aux_convs.conv9_1",
@@ -53,6 +54,7 @@ def cvt2quant(model: nn.Module, quant_str: str) -> None:
         "aux_convs.conv10_2",
         "aux_convs.conv11_1",
         "aux_convs.conv11_2",
+
         "pred_convs.loc_conv4_3",
         "pred_convs.loc_conv7",
         "pred_convs.loc_conv8_2",
@@ -90,6 +92,7 @@ def get_num_weight_from_name(model: nn.Module, names: List[str]) -> List[int]:
 def measure_sparse(*ws) -> float:
     """Measure the sparsity of input tensors or *tensors.
     Example:
+
     """
     if not ws:
         # Detecting in case, empty tuple of ws (max pooling or others).
@@ -192,7 +195,8 @@ class BinConv2d(nn.Conv2d):
 
     def forward(self, x, *args):
         self.weight_q = BinQuant.apply(self.weight)
-        y = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding)
+        y = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding,
+                     self.dilation, self.groups)
         return y
 
 
@@ -216,7 +220,8 @@ class TerConv2d(nn.Conv2d):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         threshold = ternary_threshold(self.delta, self.weight)
         self.weight_q = TerQuant.apply(self.weight, threshold)
-        x = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding)
+        x = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding,
+                     self.dilation, self.groups)
         return x
 
 
@@ -274,9 +279,9 @@ if __name__ == "__main__":
     from model_n import SSD300
 
     model = SSD300(11)
-    ws = ["t" for _ in range(35)]
+    # ws = ["t" for _ in range(35)]
     ws = ["b" for _ in range(35)]
-    ws = ["f" for _ in range(35)]
+    # ws = ["f" for _ in range(35)]
     ws = reduce(lambda x, y: x + y, ws)
     cvt2quant(model, ws)
     print(model)
@@ -287,13 +292,17 @@ if __name__ == "__main__":
     model.pred_convs.init_conv2d()
     model.aux_convs.init_conv2d()
 
-    wandb.init(
-        project="mixed-ssd300",
-        notes="",
-        tags=["object-detection", "quantization"],
-        config=args,
-    )
-    wandb.watch(model)
-    wandb.log()
+    model.forward(torch.)
 
+#    wandb.init(
+#        project="mixed-ssd300",
+#        notes="",
+#        tags=["object-detection", "quantization"],
+#        config=args,
+#    )
+#    wandb.watch(model)
+#    wandb.log()
     # Maybe using AttrDict with wandb log
+
+
+
