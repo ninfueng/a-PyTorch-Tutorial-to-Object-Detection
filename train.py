@@ -15,22 +15,25 @@ from quant import cvt2quant
 from utils import *
 
 parser = argparse.ArgumentParser(description="mixed-ssd300.")
-parser.add_argument("--batch_size", type=int, default=8)
-parser.add_argument("--test_batch_size", type=int, default=64)
+parser.add_argument("--batch_size", type=int, default=32)
+parser.add_argument("--test_batch_size", type=int, default=100)
 parser.add_argument("--iterations", type=int, default=120_000)
 parser.add_argument("--weight-decay", type=float, default=5e-4)
-parser.add_argument("--lr", type=float, default=1e-8)
+parser.add_argument("--lr", type=float, default=1e-3)
 parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
 parser.add_argument("--project-name", type=str, default="ssd300")
 # parser.add_argument("--ws", type=str, default="ttttttttttttttttttttttttttttttttttt")
 # parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
-parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
+# parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
+parser.add_argument("--ws", type=str,
+                    default="bbbbbbbbbbbbbbbffffffffffffffffffff")
 parser.add_argument("--wandb", dest="wandb", action="store_true")
 parser.set_defaults(wandb=False)
 args = parser.parse_args()
 
 assert len(args.ws) == 35
+EVAL_EVERY = 100
 data_folder = "./"  # folder with data files
 keep_difficult = True  # use objects considered difficult to detect?
 n_classes = len(label_map)  # number of different types of objects
@@ -121,7 +124,6 @@ def main():
         model = checkpoint["model"]
         optimizer = checkpoint["optimizer"]
 
-    # Move to default device
     model = model.to(device)
     criterion = MultiBoxLoss(priors_cxcy=model.priors_cxcy).to(device)
     train_dataset = PascalVOCDataset(
@@ -160,7 +162,7 @@ def main():
             optimizer=optimizer,
             epoch=epoch,
         )
-        if epoch != 0 and epoch % 10 == 0:
+        if epoch != 0 and epoch % EVAL_EVERY == 0:
             mAP = evaluate(test_loader, model)
             try:
                 save_checkpoint(epoch, model, optimizer)

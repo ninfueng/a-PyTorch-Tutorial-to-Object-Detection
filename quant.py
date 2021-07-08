@@ -75,7 +75,10 @@ def cvt2quant(model: nn.Module, quant_str: str) -> None:
 
     for t, q in zip(targets, quant_str):
         layer = multi_getattr(model, t)
-        quant_layer = to_quant_layer(layer, q)
+        if t.find("aux") > -1 or t.find("pred") > -1:
+            quant_layer = to_quant_layer(layer, False, q)
+        else:
+            quant_layer = to_quant_layer(layer, True, q)
         multi_setattr(model, t, quant_layer)
 
 
@@ -271,7 +274,7 @@ class TerConv2d(nn.Conv2d):
 #    return quant_layer
 
 
-def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
+def to_quant_layer(layer: nn.Module, with_bn: bool, quant_char: str) -> nn.Module:
     """ """
     assert isinstance(quant_char, str)
     if isinstance(layer, nn.Conv2d):
@@ -296,10 +299,11 @@ def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
             raise NotImplementedError(
                 f"quant_char: {quant_char} can be only `f`, `b`, and `t`."
             )
-        quant_layer = nn.Sequential(
-            quant_layer,
-            nn.BatchNorm2d(kwargs["out_channels"])
-        )
+        if with_bn:
+            quant_layer = nn.Sequential(
+                quant_layer,
+                nn.BatchNorm2d(kwargs["out_channels"])
+            )
 
     elif isinstance(layer, nn.Linear):
         kwargs = {
@@ -317,10 +321,11 @@ def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
             raise NotImplementedError(
                 f"quant_char: {quant_char} can be only `f`, `b`, and `t`."
             )
-        quant_layer = nn.Sequential(
-            quant_layer,
-            nn.BatchNorm1d(kwargs["out_features"])
-        )
+        if with_bn:
+            quant_layer = nn.Sequential(
+                quant_layer,
+                nn.BatchNorm1d(kwargs["out_features"])
+            )
 
     else:
         raise NotImplementedError("Support only nn.Conv2d and nn.Linear.")
