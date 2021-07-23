@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser(description="mixed-ssd300.")
 parser.add_argument("--batch_size", type=int, default=32)
 parser.add_argument("--test_batch_size", type=int, default=100)
 parser.add_argument("--iterations", type=int, default=120_000)
-parser.add_argument("--weight-decay", type=float, default=5e-4)
+parser.add_argument("--weight-decay", type=float, default=0.0)#5e-4)
 parser.add_argument("--lr", type=float, default=1e-3)
 parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
@@ -227,7 +227,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 #
 
 
-def evaluate(test_loader, model, num_batches: int = None):
+def evaluate(test_loader, model, num_eval_batches: int = 5):
     model.eval()
     det_boxes = list()
     det_labels = list()
@@ -270,7 +270,7 @@ def evaluate(test_loader, model, num_batches: int = None):
             true_labels.extend(labels)
             true_difficulties.extend(difficulties)
 
-            if num_batches is not None and i == num_batches:
+            if num_eval_batches is not None and i == num_eval_batches:
                 break
 
         # Calculate mAP
