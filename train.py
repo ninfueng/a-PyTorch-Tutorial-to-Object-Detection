@@ -227,7 +227,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 #
 
 
-def evaluate(test_loader, model):
+def evaluate(test_loader, model, num_batches: int = None):
     model.eval()
     det_boxes = list()
     det_labels = list()
@@ -269,6 +269,9 @@ def evaluate(test_loader, model):
             true_boxes.extend(boxes)
             true_labels.extend(labels)
             true_difficulties.extend(difficulties)
+
+            if num_batches is not None and i == num_batches:
+                break
 
         # Calculate mAP
         APs, mAP = calculate_mAP(
