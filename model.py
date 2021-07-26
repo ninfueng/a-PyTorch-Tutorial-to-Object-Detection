@@ -822,8 +822,7 @@ if __name__ == "__main__":
     cvt2quant(model, ws)
     model.eval()
     # o0, o1 = model.forward(torch.zeros(1, 3, 300, 300))
-    o0, o1 = model.forward(
-        torch.randn(1, 3, 300, 300))
+    o0, o1 = model.forward(torch.randn(1, 3, 300, 300))
     print(o0)
     print(o1)
     # print(o0.shape, o1.shape)

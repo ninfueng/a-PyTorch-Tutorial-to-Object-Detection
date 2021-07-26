@@ -13,27 +13,28 @@ from datasets import PascalVOCDataset
 from model import SSD300, MultiBoxLoss
 from quant import cvt2quant
 from utils import *
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 parser = argparse.ArgumentParser(description="mixed-ssd300.")
 parser.add_argument("--batch_size", type=int, default=32)
 parser.add_argument("--test_batch_size", type=int, default=100)
 parser.add_argument("--iterations", type=int, default=120_000)
 parser.add_argument("--weight-decay", type=float, default=0.0)#5e-4)
-parser.add_argument("--lr", type=float, default=1e-3)
+parser.add_argument("--lr", type=float, default=1e-4)
 parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
 parser.add_argument("--project-name", type=str, default="ssd300")
 # parser.add_argument("--ws", type=str, default="ttttttttttttttttttttttttttttttttttt")
 # parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
 # parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
-parser.add_argument("--ws", type=str,
-                    default="bbbbbbbbbbbbbbbffffffffffffffffffff")
+# parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbffffffffffffffffffff")
+parser.add_argument("--ws", type=str, default="fbbbbbbttttttttffffffffffffffffffff")
 parser.add_argument("--wandb", dest="wandb", action="store_true")
 parser.set_defaults(wandb=False)
 args = parser.parse_args()
 
 assert len(args.ws) == 35
-EVAL_EVERY = 100
+EVAL_EVERY = 10
 data_folder = "./"  # folder with data files
 keep_difficult = True  # use objects considered difficult to detect?
 n_classes = len(label_map)  # number of different types of objects
@@ -150,10 +151,10 @@ def main():
     )
     epochs = iterations // (len(train_dataset) // 32)
     decay_lr_at = [it // (len(train_dataset) // 32) for it in decay_lr_at]
-
+    scheduler = CosineAnnealingLR(optimizer, epochs)
     for epoch in range(start_epoch, epochs):
-        if epoch in decay_lr_at:
-            adjust_learning_rate(optimizer, decay_lr_to)
+        # if epoch in decay_lr_at:
+        #     adjust_learning_rate(optimizer, decay_lr_to)
 
         train(
             train_loader=train_loader,
@@ -168,7 +169,9 @@ def main():
                 save_checkpoint(epoch, model, optimizer)
             except AttributeError:
                 pass
-    print(mAP)
+        scheduler.step(epoch)
+    mAP = evaluate(test_loader, model)
+    print(f"Last epoch {epoch}, evaluation mAP: {mAP}")
 
 
 def train(train_loader, model, criterion, optimizer, epoch):
@@ -296,4 +299,3 @@ if __name__ == "__main__":
         import warnings
         warnings.simplefilter("ignore")
     main()
-
