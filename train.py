@@ -28,13 +28,14 @@ parser.add_argument("--project-name", type=str, default="ssd300")
 # parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
 # parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 # parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbffffffffffffffffffff")
-parser.add_argument("--ws", type=str, default="fbbbbbbttttttttffffffffffffffffffff")
+# parser.add_argument("--ws", type=str, default="fbbbbbbttttttttffffffffffffffffffff")
+parser.add_argument("--ws", type=str, default="fbbbbbbttttttttttttttffffffffffffff")
 parser.add_argument("--wandb", dest="wandb", action="store_true")
 parser.set_defaults(wandb=False)
 args = parser.parse_args()
 
 assert len(args.ws) == 35
-EVAL_EVERY = 10
+EVAL_EVERY = 30
 data_folder = "./"  # folder with data files
 keep_difficult = True  # use objects considered difficult to detect?
 n_classes = len(label_map)  # number of different types of objects
@@ -151,6 +152,7 @@ def main():
     )
     epochs = iterations // (len(train_dataset) // 32)
     decay_lr_at = [it // (len(train_dataset) // 32) for it in decay_lr_at]
+    # By default max number of epochs is 231.
     scheduler = CosineAnnealingLR(optimizer, epochs)
     for epoch in range(start_epoch, epochs):
         # if epoch in decay_lr_at:
@@ -170,7 +172,7 @@ def main():
             except AttributeError:
                 pass
         scheduler.step(epoch)
-    mAP = evaluate(test_loader, model)
+    mAP = evaluate(test_loader, model, None)
     print(f"Last epoch {epoch}, evaluation mAP: {mAP}")
 
 

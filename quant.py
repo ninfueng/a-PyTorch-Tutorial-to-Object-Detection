@@ -224,8 +224,9 @@ class TerConv2d(nn.Conv2d):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         threshold = ternary_threshold(self.delta, self.weight)
         self.weight_q = TerQuant.apply(self.weight, threshold)
-        x = F.conv2d(x, self.weight_q, self.bias, self.stride, self.padding,
-                     self.dilation, self.groups)
+        x = F.conv2d(
+            x, self.weight_q, self.bias, self.stride, self.padding,
+            self.dilation, self.groups)
         return x
 #def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
 #    """ """
