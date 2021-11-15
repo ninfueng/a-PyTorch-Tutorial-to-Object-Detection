@@ -14,12 +14,15 @@ from model import SSD300, MultiBoxLoss
 from quant import cvt2quant
 from utils import *
 from torch.optim.lr_scheduler import CosineAnnealingLR
+import brevitas.nn as qnn
+
+from ninpy.torch2.hw import LayerConverter
 
 parser = argparse.ArgumentParser(description="mixed-ssd300.")
 parser.add_argument("--batch_size", type=int, default=32)
 parser.add_argument("--test_batch_size", type=int, default=100)
 parser.add_argument("--iterations", type=int, default=120_000)
-parser.add_argument("--weight-decay", type=float, default=0.0)#5e-4)
+parser.add_argument("--weight-decay", type=float, default=0.0)  # 5e-4)
 parser.add_argument("--lr", type=float, default=1e-4)
 parser.add_argument("--seed", type=int, default=2021)
 parser.add_argument("--workers", type=int, default=min(cpu_count(), 20))
@@ -28,8 +31,7 @@ parser.add_argument("--project-name", type=str, default="ssd300")
 # parser.add_argument("--ws", type=str, default="fffffffffffffffffffffffffffffffffff")
 # parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 # parser.add_argument("--ws", type=str, default="bbbbbbbbbbbbbbbffffffffffffffffffff")
-# parser.add_argument("--ws", type=str, default="fbbbbbbttttttttffffffffffffffffffff")
-parser.add_argument("--ws", type=str, default="fbbbbbbttttttttttttttffffffffffffff")
+parser.add_argument("--ws", type=str, default="fbbbbbbttttttttffffffffffffffffffff")
 parser.add_argument("--wandb", dest="wandb", action="store_true")
 parser.set_defaults(wandb=False)
 args = parser.parse_args()
@@ -53,7 +55,7 @@ decay_lr_at = [80000, 100000]  # decay learning rate after these many iterations
 decay_lr_to = 0.1  # decay learning rate to this fraction of the existing learning rate
 momentum = 0.9
 # grad_clip = 1.0
-grad_clip = None 
+grad_clip = None
 # grad_clip = None  # clip if gradients are exploding, which may happen at larger batch sizes (sometimes at 32) - you will recognize it by a sorting error in the MuliBox loss calculation
 cudnn.benchmark = True
 
@@ -73,12 +75,14 @@ if args.wandb:
     )
 pp = PrettyPrinter()
 
+
 class DataParallel(torch.nn.DataParallel):
     def __getattr__(self, name):
         try:
             return super().__getattr__(name)
         except AttributeError:
             return getattr(self.module, name)
+
 
 def main():
     global start_epoch, label_map, epoch, checkpoint, decay_lr_at
@@ -87,9 +91,18 @@ def main():
         start_epoch = 0
         model = SSD300(n_classes=n_classes)
         cvt2quant(model, args.ws)
-#        model.base.load_pretrained_layers()
-#        model.pred_convs.init_conv2d()
-#        model.aux_convs.init_conv2d()
+        #        model.base.load_pretrained_layers()
+        #        model.pred_convs.init_conv2d()
+        #        model.aux_convs.init_conv2d()
+        quant_relu_kwargs  = {
+                'return_quant_tensor' : False,
+                'bit_width' : 8
+                }
+        LayerConverter.cvt_activation(model, nn.ReLU, qnn.QuantReLU, **quant_relu_kwargs)
+        model.base.conv1_1 = nn.Sequential(*[
+            qnn.QuantIdentity(bit_width=8),
+            model.base.conv1_1,
+            ])
         print(model)
 
         if args.wandb:
@@ -100,20 +113,20 @@ def main():
         biases = list()
         not_biases = list()
         # TODO: checking that model parameters problem?
-#        for param_name, param in model.named_parameters():
-#            if param.requires_grad:
-#                if param_name.endswith(".bias"):
-#                    biases.append(param)
-#                else:
-#                    not_biases.append(param)
+        #        for param_name, param in model.named_parameters():
+        #            if param.requires_grad:
+        #                if param_name.endswith(".bias"):
+        #                    biases.append(param)
+        #                else:
+        #                    not_biases.append(param)
 
-#        optimizer = torch.optim.SGD(
-#            params=[{"params": biases, "lr": 2 * lr}, {"params": not_biases}],
-#            lr=lr,
-#            momentum=momentum,
-#            weight_decay=weight_decay,
-#        )
-       
+        #        optimizer = torch.optim.SGD(
+        #            params=[{"params": biases, "lr": 2 * lr}, {"params": not_biases}],
+        #            lr=lr,
+        #            momentum=momentum,
+        #            weight_decay=weight_decay,
+        #        )
+
         optimizer = torch.optim.Adam(
             params=model.parameters(),
             lr=lr,
@@ -297,7 +310,9 @@ def evaluate(test_loader, model, num_eval_batches: int = 5):
 
 if __name__ == "__main__":
     import sys
+
     if not sys.warnoptions:
         import warnings
+
         warnings.simplefilter("ignore")
     main()

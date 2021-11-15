@@ -45,7 +45,6 @@ def cvt2quant(model: nn.Module, quant_str: str) -> None:
         "base.conv5_3",
         "base.conv6",
         "base.conv7",
-
         "aux_convs.conv8_1",
         "aux_convs.conv8_2",
         "aux_convs.conv9_1",
@@ -54,7 +53,6 @@ def cvt2quant(model: nn.Module, quant_str: str) -> None:
         "aux_convs.conv10_2",
         "aux_convs.conv11_1",
         "aux_convs.conv11_2",
-
         "pred_convs.loc_conv4_3",
         "pred_convs.loc_conv7",
         "pred_convs.loc_conv8_2",
@@ -199,8 +197,14 @@ class BinConv2d(nn.Conv2d):
     def forward(self, x, *args):
         self.weight_q = BinQuant.apply(self.weight)
         y = F.conv2d(
-            x, self.weight_q, self.bias, self.stride, self.padding,
-            self.dilation, self.groups)
+            x,
+            self.weight_q,
+            self.bias,
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.groups,
+        )
         return y
 
 
@@ -225,10 +229,18 @@ class TerConv2d(nn.Conv2d):
         threshold = ternary_threshold(self.delta, self.weight)
         self.weight_q = TerQuant.apply(self.weight, threshold)
         x = F.conv2d(
-            x, self.weight_q, self.bias, self.stride, self.padding,
-            self.dilation, self.groups)
+            x,
+            self.weight_q,
+            self.bias,
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.groups,
+        )
         return x
-#def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
+
+
+# def to_quant_layer(layer: nn.Module, quant_char: str) -> nn.Module:
 #    """ """
 #    assert isinstance(quant_char, str)
 #    if isinstance(layer, nn.Conv2d):
@@ -302,8 +314,7 @@ def to_quant_layer(layer: nn.Module, with_bn: bool, quant_char: str) -> nn.Modul
             )
         if with_bn:
             quant_layer = nn.Sequential(
-                quant_layer,
-                nn.BatchNorm2d(kwargs["out_channels"])
+                quant_layer, nn.BatchNorm2d(kwargs["out_channels"])
             )
 
     elif isinstance(layer, nn.Linear):
@@ -324,8 +335,7 @@ def to_quant_layer(layer: nn.Module, with_bn: bool, quant_char: str) -> nn.Modul
             )
         if with_bn:
             quant_layer = nn.Sequential(
-                quant_layer,
-                nn.BatchNorm1d(kwargs["out_features"])
+                quant_layer, nn.BatchNorm1d(kwargs["out_features"])
             )
 
     else:
@@ -338,6 +348,8 @@ if __name__ == "__main__":
 
     import wandb
     from model import SSD300
+    from ninpy.torch2.hw import LayerConverter
+    import brevitas.nn as qnn
 
     model = SSD300(21)
     # ws = ["t" for _ in range(35)]
@@ -345,6 +357,15 @@ if __name__ == "__main__":
     # ws = ["f" for _ in range(35)]
     ws = reduce(lambda x, y: x + y, ws)
     cvt2quant(model, ws)
+    quant_relu_kwargs  = {
+            'return_quant_tensor' : False,
+            'bit_width' : 8
+            }
+    LayerConverter.cvt_activation(model, nn.ReLU, qnn.QuantReLU, **quant_relu_kwargs)
+    model.base.conv1_1 = nn.Sequential(*[
+        qnn.QuantIdentity(bit_width=8),
+        model.base.conv1_1,
+        ])
     print(model)
     model.eval()
     model.forward(torch.zeros(2, 3, 300, 300))
@@ -364,7 +385,4 @@ if __name__ == "__main__":
 #    )
 #    wandb.watch(model)
 #    wandb.log()
-    # Maybe using AttrDict with wandb log
-
-
-
+# Maybe using AttrDict with wandb log

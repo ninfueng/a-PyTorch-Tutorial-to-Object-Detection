@@ -48,8 +48,8 @@ class VGGBase(nn.Module):
         self.conv6 = nn.Conv2d(
             512, 1024, kernel_size=3, padding=6, dilation=6
         )  # atrous convolution
-
         self.conv7 = nn.Conv2d(1024, 1024, kernel_size=1)
+        self.relu = nn.ReLU()
         # self.load_pretrained_layers()
 
     def forward(self, image):
@@ -59,34 +59,34 @@ class VGGBase(nn.Module):
         :param image: images, a tensor of dimensions (N, 3, 300, 300)
         :return: lower-level feature maps conv4_3 and conv7
         """
-        out = F.relu(self.conv1_1(image))  # (N, 64, 300, 300)
-        out = F.relu(self.conv1_2(out))  # (N, 64, 300, 300)
+        out = self.relu(self.conv1_1(image))  # (N, 64, 300, 300)
+        out = self.relu(self.conv1_2(out))  # (N, 64, 300, 300)
         out = self.pool1(out)  # (N, 64, 150, 150)
 
-        out = F.relu(self.conv2_1(out))  # (N, 128, 150, 150)
-        out = F.relu(self.conv2_2(out))  # (N, 128, 150, 150)
+        out = self.relu(self.conv2_1(out))  # (N, 128, 150, 150)
+        out = self.relu(self.conv2_2(out))  # (N, 128, 150, 150)
         out = self.pool2(out)  # (N, 128, 75, 75)
 
-        out = F.relu(self.conv3_1(out))  # (N, 256, 75, 75)
-        out = F.relu(self.conv3_2(out))  # (N, 256, 75, 75)
-        out = F.relu(self.conv3_3(out))  # (N, 256, 75, 75)
+        out = self.relu(self.conv3_1(out))  # (N, 256, 75, 75)
+        out = self.relu(self.conv3_2(out))  # (N, 256, 75, 75)
+        out = self.relu(self.conv3_3(out))  # (N, 256, 75, 75)
         out = self.pool3(
             out
         )  # (N, 256, 38, 38), it would have been 37 if not for ceil_mode = True
 
-        out = F.relu(self.conv4_1(out))  # (N, 512, 38, 38)
-        out = F.relu(self.conv4_2(out))  # (N, 512, 38, 38)
-        out = F.relu(self.conv4_3(out))  # (N, 512, 38, 38)
+        out = self.relu(self.conv4_1(out))  # (N, 512, 38, 38)
+        out = self.relu(self.conv4_2(out))  # (N, 512, 38, 38)
+        out = self.relu(self.conv4_3(out))  # (N, 512, 38, 38)
         conv4_3_feats = out  # (N, 512, 38, 38)
         out = self.pool4(out)  # (N, 512, 19, 19)
 
-        out = F.relu(self.conv5_1(out))  # (N, 512, 19, 19)
-        out = F.relu(self.conv5_2(out))  # (N, 512, 19, 19)
-        out = F.relu(self.conv5_3(out))  # (N, 512, 19, 19)
+        out = self.relu(self.conv5_1(out))  # (N, 512, 19, 19)
+        out = self.relu(self.conv5_2(out))  # (N, 512, 19, 19)
+        out = self.relu(self.conv5_3(out))  # (N, 512, 19, 19)
         out = self.pool5(out)  # (N, 512, 19, 19), pool5 does not reduce dimensions
 
-        out = F.relu(self.conv6(out))  # (N, 1024, 19, 19)
-        conv7_feats = F.relu(self.conv7(out))  # (N, 1024, 19, 19)
+        out = self.relu(self.conv6(out))  # (N, 1024, 19, 19)
+        conv7_feats = self.relu(self.conv7(out))  # (N, 1024, 19, 19)
         return conv4_3_feats, conv7_feats
 
     def load_pretrained_layers(self):
@@ -134,9 +134,8 @@ class VGGBase(nn.Module):
         # Note: an FC layer of size (K) operating on a flattened version (C*H*W) of a 2D image of size (C, H, W)...
         # ...is equivalent to a convolutional layer with kernel size (H, W), input channels C, output channels K...
         # ...operating on the 2D image of size (C, H, W) without padding
-
         self.load_state_dict(state_dict)
-
+        self.relu = nn.ReLU()
         print("\nLoaded base model.\n")
 
 
@@ -173,6 +172,7 @@ class AuxiliaryConvolutions(nn.Module):
 
         # Initialize convolutions' parameters
         # self.init_conv2d()
+        self.relu = nn.ReLU()
 
     def init_conv2d(self):
         """
@@ -190,20 +190,20 @@ class AuxiliaryConvolutions(nn.Module):
         :param conv7_feats: lower-level conv7 feature map, a tensor of dimensions (N, 1024, 19, 19)
         :return: higher-level feature maps conv8_2, conv9_2, conv10_2, and conv11_2
         """
-        out = F.relu(self.conv8_1(conv7_feats))  # (N, 256, 19, 19)
-        out = F.relu(self.conv8_2(out))  # (N, 512, 10, 10)
+        out = self.relu(self.conv8_1(conv7_feats))  # (N, 256, 19, 19)
+        out = self.relu(self.conv8_2(out))  # (N, 512, 10, 10)
         conv8_2_feats = out  # (N, 512, 10, 10)
 
-        out = F.relu(self.conv9_1(out))  # (N, 128, 10, 10)
-        out = F.relu(self.conv9_2(out))  # (N, 256, 5, 5)
+        out = self.relu(self.conv9_1(out))  # (N, 128, 10, 10)
+        out = self.relu(self.conv9_2(out))  # (N, 256, 5, 5)
         conv9_2_feats = out  # (N, 256, 5, 5)
 
-        out = F.relu(self.conv10_1(out))  # (N, 128, 5, 5)
-        out = F.relu(self.conv10_2(out))  # (N, 256, 3, 3)
+        out = self.relu(self.conv10_1(out))  # (N, 128, 5, 5)
+        out = self.relu(self.conv10_2(out))  # (N, 256, 3, 3)
         conv10_2_feats = out  # (N, 256, 3, 3)
 
-        out = F.relu(self.conv11_1(out))  # (N, 128, 3, 3)
-        conv11_2_feats = F.relu(self.conv11_2(out))  # (N, 256, 1, 1)
+        out = self.relu(self.conv11_1(out))  # (N, 128, 3, 3)
+        conv11_2_feats = self.relu(self.conv11_2(out))  # (N, 256, 1, 1)
 
         # Higher-level feature maps
         return conv8_2_feats, conv9_2_feats, conv10_2_feats, conv11_2_feats
@@ -816,13 +816,16 @@ if __name__ == "__main__":
     from quant import multi_getattr, multi_setattr, cvt2quant
     from functools import reduce
     import torch
+    from ninpy.torch2 import layer_converter
+    import brevitas.nn as qnn
 
     model = SSD300(21)
     ws = reduce(lambda x, y: x + y, ["t" for _ in range(35)])
+    layer_converter.cvt_activation(nn.ReLU(), qnn.QuantReLU())
     cvt2quant(model, ws)
     model.eval()
     # o0, o1 = model.forward(torch.zeros(1, 3, 300, 300))
-    o0, o1 = model.forward(torch.randn(1, 3, 300, 300))
-    print(o0)
-    print(o1)
+    # o0, o1 = model.forward(torch.randn(1, 3, 300, 300))
+    # print(o0)
+    # print(o1)
     # print(o0.shape, o1.shape)

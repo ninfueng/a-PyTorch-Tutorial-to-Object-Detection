@@ -861,5 +861,6 @@ def clip_gradient(optimizer, grad_clip):
             if param.grad is not None:
                 param.grad.data.clamp_(-grad_clip, grad_clip)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     print(len(label_map))
